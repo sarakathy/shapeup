@@ -742,7 +742,7 @@ function showReframes(data) {
   data.forEach(function(rf, i){
     var item = document.createElement('div');
     item.className = 'reframe-item';
-    item.appendChild(makeShapeSVG(rf.shape, rf.color, 80));
+   item.appendChild(makeShape(rf.shape, rf.color, 80));
     var lbl = document.createElement('div');
     lbl.className = 'reframe-label';
     lbl.textContent = rf.text;
@@ -987,4 +987,5 @@ function announce(msg){
 </script>
 </body>
 </html>
+
 
