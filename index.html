@@ -94,6 +94,56 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--ink);m
   align-items:center;
   justify-content:flex-start;
 }
+.shape{
+  width:80px;
+  height:80px;
+  flex-shrink:0;
+  position:relative;
+}
+
+.shape::after{
+  content:'';
+  position:absolute;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:rgba(255,255,255,.28);
+  top:16px;
+  left:18px;
+}
+
+.shape.circle{
+  border-radius:50%;
+}
+
+.shape.square{
+  border-radius:12px;
+}
+
+.shape.triangle{
+  width:0;
+  height:0;
+  border-left:40px solid transparent;
+  border-right:40px solid transparent;
+  border-bottom:72px solid;
+  background:none !important;
+}
+
+.shape.triangle::after{
+  top:34px;
+  left:-9px;
+}
+
+.small-shape{
+  width:72px;
+  height:72px;
+}
+
+.small-shape.triangle{
+  border-left:36px solid transparent;
+  border-right:36px solid transparent;
+  border-bottom:65px solid;
+}
 
 .reframe-item svg,
 .your-shape-item svg{
@@ -742,7 +792,7 @@ function showReframes(data) {
   data.forEach(function(rf, i){
     var item = document.createElement('div');
     item.className = 'reframe-item';
-   item.appendChild(makeShape(rf.shape, rf.color, 80));
+    item.appendChild(makeShapeSVG(rf.shape, rf.color, 80));
     var lbl = document.createElement('div');
     lbl.className = 'reframe-label';
     lbl.textContent = rf.text;
@@ -760,41 +810,22 @@ function showReframes(data) {
   }, delay);
 }
 
-/* ═══════════════════════════
-   SHAPE SVG HELPER
-═══════════════════════════ */
-function makeShapeSVG(type, color, size) {
-  var ns='http://www.w3.org/2000/svg';
-  var svg=document.createElementNS(ns,'svg');
-  svg.setAttribute('width',size); svg.setAttribute('height',size);
-  svg.setAttribute('viewBox','0 0 '+size+' '+size);
-  svg.setAttribute('aria-hidden','true');
-svg.style.display = 'block';
-  var h=size/2;
-  var shine=function(fx,fy,fr){
-    var c=document.createElementNS(ns,'circle');
-    c.setAttribute('cx',fx); c.setAttribute('cy',fy); c.setAttribute('r',fr);
-    c.setAttribute('fill','white'); c.setAttribute('opacity','0.28');
-    svg.appendChild(c);
-  };
-  if(type==='circle'){
-    var c=document.createElementNS(ns,'circle');
-    c.setAttribute('cx',h); c.setAttribute('cy',h); c.setAttribute('r',h-3);
-    c.setAttribute('fill',color); svg.appendChild(c);
-    shine(h*.66,h*.64,h*.20);
-  } else if(type==='triangle'){
-    var t=document.createElementNS(ns,'polygon');
-    t.setAttribute('points',h+',4 '+(size-4)+','+(size-5)+' 4,'+(size-5));
-    t.setAttribute('fill',color); svg.appendChild(t);
-    shine(h,h*.78,h*.17);
-  } else {
-    var r=document.createElementNS(ns,'rect');
-    r.setAttribute('x','5'); r.setAttribute('y','5');
-    r.setAttribute('width',size-10); r.setAttribute('height',size-10);
-    r.setAttribute('rx','9'); r.setAttribute('fill',color); svg.appendChild(r);
-    shine(h*.66,h*.66,h*.17);
+function makeShape(type, color, size){
+  var div = document.createElement('div');
+
+  div.className = 'shape ' + type;
+
+  if(size === 72){
+    div.classList.add('small-shape');
   }
-  return svg;
+
+  if(type === 'triangle'){
+    div.style.borderBottomColor = color;
+  } else {
+    div.style.background = color;
+  }
+
+  return div;
 }
 
 /* ═══════════════════════════
@@ -894,7 +925,7 @@ function addQuestion(){
   var item=document.createElement('div');
   item.className='your-shape-item';
   item.setAttribute('role','listitem');
-  item.appendChild(makeShapeSVG(Q_SHAPES[qCount%3], Q_COLORS[qCount%3], 72));
+  item.appendChild(makeShape(Q_SHAPES[qCount%3], Q_COLORS[qCount%3], 72));
   var txt=document.createElement('div');
   txt.className='your-shape-text';
   txt.textContent=val;
@@ -987,5 +1018,4 @@ function announce(msg){
 </script>
 </body>
 </html>
-
 
