@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shape Up – Reframing Problems</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+  :root {
+    --purple: #ac1ca1;
+    --navy: #0d2b6e;
+    --blue: #1479d1;
+    --orange: #ffa32a;
+    --green: #89d808;
+    --light: #ebecf4;
+    --ink: #0c1a4a;
+    --purple-dark: #8a1582;
+    --navy-dark: #091f52;
+    --blue-dark: #0f5fa8;
+    --orange-dark: #d4821a;
+    --green-dark: #5f9705;
+    --white: #ffffff;
+    --radius-rock: 48% 52% 55% 45% / 45% 55% 45% 55%;
+    --radius-rock2: 55% 45% 48% 52% / 52% 48% 55% 45%;
+    --radius-rock3: 42% 58% 53% 47% / 55% 42% 58% 45%;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--navy);
+    color: white;
+    padding: 8px 16px;
+    z-index: 1000;
+    font-weight: 600;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 0; }
+
+  .game-wrap {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0 16px 64px;
+  }
+
+  /* ── HEADER ── */
+  .game-header {
+    text-align: center;
+    padding: 48px 24px 32px;
+    position: relative;
+  }
+  .game-header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .game-header h1 span { color: var(--purple); }
+  .game-header .subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--ink);
+    margin-top: 12px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.55;
+  }
+
+  /* ── SECTION CARDS ── */
+  .section {
+    background: white;
+    border-radius: 24px;
+    padding: 36px 32px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 24px rgba(13,43,110,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px; height: 100%;
+    background: var(--purple);
+    border-radius: 24px 0 0 24px;
+  }
+  .section.accent-blue::before { background: var(--blue); }
+  .section.accent-orange::before { background: var(--orange); }
+  .section.accent-green::before { background: var(--green); }
+
+  .section-text {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--ink);
+    max-width: 720px;
+  }
+  .section-text + .section-text { margin-top: 16px; }
+
+  .highlight {
+    background: linear-gradient(120deg, rgba(172,28,161,0.12), rgba(172,28,161,0.08));
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-weight: 600;
+  }
+
+  /* ── ROCKY SCENE (intro) ── */
+  .rocky-scene {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 16px;
+    padding: 32px 0 8px;
+    flex-wrap: wrap;
+  }
+
+  .rock {
+    position: relative;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Intro pointy rocks (SVG) */
+  .intro-rocks {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 24px 0;
+  }
+  .intro-rock-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── PROBLEM ROCKS ── */
+  .problems-stage {
+    display: flex;
+    justify-content: center;
+    gap: clamp(12px, 3vw, 28px);
+    flex-wrap: wrap;
+    padding: 16px 0 32px;
+    min-height: 200px;
+    align-items: flex-end;
+  }
+
+  .problem-rock-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .problem-rock-btn:hover .rock-svg { filter: brightness(1.08); transform: translateY(-4px); }
+  .problem-rock-btn:focus { outline: none; }
+  .problem-rock-btn:focus .rock-svg { outline: 3px solid var(--blue); outline-offset: 4px; border-radius: 4px; }
+  .problem-rock-btn:active .rock-svg { transform: scale(0.97); }
+
+  .rock-svg {
+    transition: transform 0.2s, filter 0.2s;
+    display: block;
+  }
+
+  .problem-rock-btn.exploded { pointer-events: none; opacity: 0; }
+
+  .rock-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: center;
+    max-width: 130px;
+    line-height: 1.3;
+  }
+
+  /* ── REFRAME RESULTS ── */
+  .reframe-results {
+    display: flex;
+    justify-content: center;
+    gap: clamp(10px, 2.5vw, 22px);
+    flex-wrap: wrap;
+    padding: 0 0 16px;
+    min-height: 160px;
+    align-items: flex-start;
+  }
+
+  .reframe-shape {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(30px) scale(0.8);
+    transition: opacity 0.5s cubic-bezier(.22,.68,0,1.2), transform 0.5s cubic-bezier(.22,.68,0,1.2);
+  }
+  .reframe-shape.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .shape-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: center;
+    max-width: 140px;
+    line-height: 1.35;
+    background: white;
+    border-radius: 10px;
+    padding: 8px 10px;
+    box-shadow: 0 2px 10px rgba(13,43,110,0.1);
+  }
+
+  /* ── EXPLOSION ANIMATION ── */
+  @keyframes explodePiece {
+    0% { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
+    30% { opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0.3); opacity: 0; }
+  }
+  .explode-particle {
+    position: absolute;
+    pointer-events: none;
+    animation: explodePiece 0.6s ease-out forwards;
+  }
+
+  /* ── INSTRUCTION TEXT ── */
+  .instruction {
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    color: var(--navy);
+    font-weight: 500;
+    text-align: center;
+    padding: 8px 0 4px;
+  }
+
+  /* ── CLICK CTA ── */
+  .click-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--purple);
+    font-weight: 600;
+    margin-top: 8px;
+    animation: pulse-cta 2s ease-in-out infinite;
+  }
+  @keyframes pulse-cta {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+  .click-cta .arrow { font-size: 1.2rem; }
+
+  /* ── YOUR PROBLEM SECTION ── */
+  .your-problem-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .your-problem-rock-wrap {
+    position: relative;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .your-rock-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.22,.68,0,1.2);
+  }
+  .your-rock-display.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .your-rock-label {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+    font-weight: 700;
+    color: var(--ink);
+    text-align: center;
+    max-width: 220px;
+    line-height: 1.35;
+    background: rgba(255,255,255,0.9);
+    border-radius: 10px;
+    padding: 8px 12px;
+    box-shadow: 0 2px 10px rgba(13,43,110,0.1);
+  }
+
+  /* ── INPUT STYLES ── */
+  .input-group {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .input-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--navy);
+  }
+
+  .styled-input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2.5px solid var(--light);
+    border-radius: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--light);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    resize: vertical;
+    min-height: 54px;
+  }
+  .styled-input:focus {
+    border-color: var(--blue);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(20,121,209,0.15);
+  }
+  .styled-input::placeholder { color: #8890a8; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 28px;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    text-decoration: none;
+  }
+  .btn:focus {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+  }
+  .btn-primary {
+    background: var(--purple);
+    color: white;
+    box-shadow: 0 4px 16px rgba(172,28,161,0.3);
+  }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(172,28,161,0.35); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { background: #c4c8d8; box-shadow: none; cursor: not-allowed; }
+
+  .btn-secondary {
+    background: var(--navy);
+    color: white;
+    box-shadow: 0 4px 14px rgba(13,43,110,0.25);
+  }
+  .btn-secondary:hover { background: var(--navy-dark); transform: translateY(-2px); }
+
+  /* ── QUESTION DISPLAY ── */
+  .questions-display {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .question-entry {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.22,.68,0,1.2);
+  }
+  .question-entry.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .q-shape-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .q-text {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    box-shadow: 0 2px 10px rgba(13,43,110,0.08);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  /* ── HINT BAR ── */
+  .hint-bar {
+    background: linear-gradient(135deg, rgba(172,28,161,0.08), rgba(20,121,209,0.08));
+    border: 1.5px solid rgba(172,28,161,0.2);
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    color: var(--navy);
+    width: 100%;
+    max-width: 560px;
+    line-height: 1.55;
+  }
+  .hint-bar strong { color: var(--purple); }
+
+  /* ── SUCCESS BANNER ── */
+  .success-banner {
+    display: none;
+    background: linear-gradient(135deg, var(--green), #6ab506);
+    border-radius: 18px;
+    padding: 24px 28px;
+    text-align: center;
+    color: var(--ink);
+    box-shadow: 0 6px 24px rgba(137,216,8,0.35);
+    width: 100%;
+    max-width: 560px;
+    animation: popIn 0.6s cubic-bezier(.22,.68,0,1.2) forwards;
+  }
+  .success-banner.show { display: block; }
+  @keyframes popIn {
+    0% { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .success-banner h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+  .success-banner p { font-size: 0.95rem; line-height: 1.55; }
+
+  /* ── CLOSING SECTION ── */
+  .closing-box {
+    background: linear-gradient(135deg, var(--navy), #1a3d8a);
+    border-radius: 24px;
+    padding: 40px 36px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 8px 32px rgba(13,43,110,0.3);
+    margin-top: 8px;
+  }
+  .closing-box h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 900;
+    margin-bottom: 16px;
+    color: var(--orange);
+  }
+  .closing-box p {
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto 16px;
+  }
+  .closing-box .magic-phrase {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--ink);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 8px;
+  }
+
+  /* ── SECTION HEADING ── */
+  .section-heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+
+  /* ── DIVIDER ── */
+  .wave-divider {
+    text-align: center;
+    font-size: 1.6rem;
+    margin: 4px 0 20px;
+    letter-spacing: 8px;
+    opacity: 0.35;
+    color: var(--purple);
+    user-select: none;
+    aria-hidden: true;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 12px 0 0;
+  }
+  .progress-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--light);
+    border: 2px solid var(--blue);
+    transition: background 0.3s;
+  }
+  .progress-dot.done { background: var(--blue); }
+
+  /* ── ARIA LIVE ── */
+  [aria-live] { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .section { padding: 24px 20px; }
+    .closing-box { padding: 28px 20px; }
+    .problems-stage { gap: 10px; }
+    .reframe-results { gap: 10px; }
+  }
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div aria-live="polite" id="aria-announcer"></div>
+
+<div class="game-wrap" id="main-content">
+
+  <!-- HEADER -->
+  <header class="game-header" role="banner">
+    <h1><span>Shape</span> Up</h1>
+    <p class="subtitle">A reframing tool — because your problems might just be opportunities in disguise.</p>
+  </header>
+
+  <!-- SECTION 1: Intro -->
+  <section class="section" aria-labelledby="sec1-heading">
+    <h2 class="section-heading" id="sec1-heading">We all have problems.</h2>
+    <p class="section-text">Things that frustrate us, bother us, or get in our way. Problems can be prickly, uncomfortable, and even painful.</p>
+
+    <!-- Intro rocks: Jon Klassen-style pointy rocks -->
+    <div class="intro-rocks" role="img" aria-label="Three jagged, pointy rocks in gray and brown tones representing problems">
+      <svg width="90" height="100" viewBox="0 0 90 100" aria-hidden="true">
+        <polygon points="45,4 78,88 38,72 12,92 20,58 5,38" fill="#8a7e70" stroke="#6e6258" stroke-width="1.5"/>
+        <polygon points="45,18 70,85 32,75 15,88 22,62 10,44" fill="#a8998a" opacity="0.4"/>
+        <polygon points="44,28 62,80 35,78 22,83 28,65 20,52" fill="#6e6258" opacity="0.18"/>
+        <ellipse cx="36" cy="68" rx="3" ry="2" fill="#6e6258" opacity="0.3"/>
+        <ellipse cx="58" cy="74" rx="2" ry="1.5" fill="#6e6258" opacity="0.25"/>
+      </svg>
+      <svg width="70" height="120" viewBox="0 0 70 120" aria-hidden="true">
+        <polygon points="35,3 62,55 58,110 28,108 10,55" fill="#9b8c7a" stroke="#7a6e60" stroke-width="1.5"/>
+        <polygon points="35,20 55,58 52,100 30,98 14,58" fill="#b8a896" opacity="0.3"/>
+        <polygon points="35,32 48,65 45,90 30,90 20,65" fill="#7a6e60" opacity="0.15"/>
+        <ellipse cx="30" cy="80" rx="2.5" ry="2" fill="#7a6e60" opacity="0.3"/>
+        <ellipse cx="44" cy="62" rx="2" ry="1.5" fill="#7a6e60" opacity="0.25"/>
+      </svg>
+      <svg width="110" height="85" viewBox="0 0 110 85" aria-hidden="true">
+        <polygon points="55,3 100,40 90,82 55,78 18,82 8,40" fill="#7d7060" stroke="#5e5448" stroke-width="1.5"/>
+        <polygon points="55,14 92,42 84,74 55,72 24,74 18,42" fill="#9e9080" opacity="0.35"/>
+        <polygon points="55,28 80,48 74,68 55,66 34,68 30,48" fill="#5e5448" opacity="0.15"/>
+        <ellipse cx="42" cy="60" rx="3" ry="2" fill="#5e5448" opacity="0.3"/>
+        <ellipse cx="68" cy="54" rx="2.5" ry="2" fill="#5e5448" opacity="0.25"/>
+        <ellipse cx="55" cy="45" rx="2" ry="1.5" fill="#5e5448" opacity="0.2"/>
+      </svg>
+    </div>
+
+    <p class="section-text">Dwelling on problems can get us stuck — but with a tool called <span class="highlight">reframing</span>, we can turn many problems into opportunities for positive change.</p>
+  </section>
+
+  <!-- SECTION 2: What is reframing -->
+  <section class="section accent-blue" aria-labelledby="sec2-heading">
+    <h2 class="section-heading" id="sec2-heading">What is reframing?</h2>
+    <p class="section-text">When we <strong>reframe</strong>, we change the <em>shape</em> of our problem into something we can use: a springboard, a ramp, or a step to something new.</p>
+
+    <!-- Colorful shapes -->
+    <div class="intro-rocks" role="img" aria-label="Three colorful shapes: a circle, triangle, and square representing reframed opportunities">
+      <!-- Circle -->
+      <svg width="88" height="88" viewBox="0 0 88 88" aria-hidden="true">
+        <circle cx="44" cy="44" r="40" fill="#ac1ca1"/>
+        <circle cx="44" cy="44" r="32" fill="none" stroke="#c83ebe" stroke-width="1.5" opacity="0.4"/>
+        <circle cx="34" cy="34" r="6" fill="#cc44c4" opacity="0.5"/>
+      </svg>
+      <!-- Triangle -->
+      <svg width="88" height="88" viewBox="0 0 88 88" aria-hidden="true">
+        <polygon points="44,8 84,80 4,80" fill="#1479d1"/>
+        <polygon points="44,22 74,76 14,76" fill="none" stroke="#3892e6" stroke-width="1.5" opacity="0.4"/>
+        <circle cx="44" cy="52" r="5" fill="#3892e6" opacity="0.4"/>
+      </svg>
+      <!-- Square -->
+      <svg width="88" height="88" viewBox="0 0 88 88" aria-hidden="true">
+        <rect x="8" y="8" width="72" height="72" rx="10" fill="#89d808"/>
+        <rect x="18" y="18" width="52" height="52" rx="6" fill="none" stroke="#a0ee22" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="32" cy="32" r="5" fill="#a0ee22" opacity="0.4"/>
+      </svg>
+    </div>
+
+    <p class="section-text">Instead of a pointy complaint that hurts to hold, we get a smooth, colorful shape — an open question that invites creative solutions.</p>
+  </section>
+
+  <!-- SECTION 3: Interactive demo -->
+  <section class="section accent-orange" aria-labelledby="sec3-heading">
+    <h2 class="section-heading" id="sec3-heading">Try it: Click a problem rock to reframe it!</h2>
+    <p class="section-text instruction" id="problem-instruction">Take a look at these problems. Are any familiar? Click one to reframe and reshape it.</p>
+
+    <div class="problems-stage" id="problems-stage" role="group" aria-label="Problem rocks — click each to reframe">
+      <!-- Money rock -->
+      <button class="problem-rock-btn" id="rock-money" data-problem="money" aria-label="Problem: There isn't enough money. Click to reframe.">
+        <svg class="rock-svg" width="140" height="120" viewBox="0 0 140 120" aria-hidden="true" role="presentation">
+          <polygon points="70,5 118,32 130,75 115,108 55,115 18,90 8,48 35,15" fill="#9b8c7a" stroke="#7a6e60" stroke-width="2"/>
+          <polygon points="70,18 110,38 122,72 108,100 58,106 24,86 16,52 38,26" fill="#b8a896" opacity="0.3"/>
+          <ellipse cx="50" cy="80" rx="5" ry="3.5" fill="#7a6e60" opacity="0.35"/>
+          <ellipse cx="90" cy="85" rx="4" ry="3" fill="#7a6e60" opacity="0.28"/>
+          <ellipse cx="72" cy="60" rx="3" ry="2.5" fill="#7a6e60" opacity="0.22"/>
+          <text x="70" y="62" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="700" fill="#3a3028">There isn't</text>
+          <text x="70" y="77" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="700" fill="#3a3028">enough money.</text>
+        </svg>
+        <span class="rock-label" aria-hidden="true">💰 Money</span>
+      </button>
+
+      <!-- Time rock -->
+      <button class="problem-rock-btn" id="rock-time" data-problem="time" aria-label="Problem: There isn't enough time. Click to reframe.">
+        <svg class="rock-svg" width="130" height="140" viewBox="0 0 130 140" aria-hidden="true" role="presentation">
+          <polygon points="65,4 100,20 120,58 112,100 80,128 38,130 10,100 5,55 28,22" fill="#8a7e70" stroke="#6e6258" stroke-width="2"/>
+          <polygon points="65,16 96,30 113,60 106,94 78,118 40,120 16,96 12,58 32,32" fill="#a8998a" opacity="0.3"/>
+          <ellipse cx="44" cy="90" rx="5" ry="3.5" fill="#6e6258" opacity="0.35"/>
+          <ellipse cx="85" cy="95" rx="4" ry="3" fill="#6e6258" opacity="0.28"/>
+          <ellipse cx="65" cy="72" rx="3" ry="2.5" fill="#6e6258" opacity="0.22"/>
+          <text x="65" y="72" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="700" fill="#3a3028">There isn't</text>
+          <text x="65" y="87" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="700" fill="#3a3028">enough time.</text>
+        </svg>
+        <span class="rock-label" aria-hidden="true">⏰ Time</span>
+      </button>
+
+      <!-- Knowledge rock -->
+      <button class="problem-rock-btn" id="rock-know" data-problem="know" aria-label="Problem: I don't know how to do it. Click to reframe.">
+        <svg class="rock-svg" width="150" height="110" viewBox="0 0 150 110" aria-hidden="true" role="presentation">
+          <polygon points="75,5 128,22 142,65 130,100 82,108 38,105 8,72 18,30 48,10" fill="#7d7060" stroke="#5e5448" stroke-width="2"/>
+          <polygon points="75,16 120,30 133,65 122,94 78,100 40,98 18,72 26,38 52,20" fill="#9e9080" opacity="0.3"/>
+          <ellipse cx="54" cy="78" rx="5" ry="3.5" fill="#5e5448" opacity="0.35"/>
+          <ellipse cx="96" cy="82" rx="4" ry="3" fill="#5e5448" opacity="0.28"/>
+          <ellipse cx="76" cy="58" rx="3" ry="2.5" fill="#5e5448" opacity="0.22"/>
+          <text x="75" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="700" fill="#3a3028">I don't know</text>
+          <text x="75" y="75" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="700" fill="#3a3028">how to do it.</text>
+        </svg>
+        <span class="rock-label" aria-hidden="true">🤔 Knowledge</span>
+      </button>
+    </div>
+
+    <div class="click-cta" aria-hidden="true" id="click-cta">
+      <span class="arrow">👆</span> Click any rock above to explode it into questions!
+    </div>
+
+    <!-- Reframe results area -->
+    <div class="reframe-results" id="reframe-results" role="region" aria-label="Reframed questions" aria-live="polite">
+      <!-- JS populates this -->
+    </div>
+
+  </section>
+
+  <!-- SECTION 4: Reflection -->
+  <section class="section" aria-labelledby="sec4-heading">
+    <h2 class="section-heading" id="sec4-heading">Notice something?</h2>
+    <p class="section-text">Wording problems as <strong>questions</strong> changes how we think about them. Instead of a complaint, we have an open-ended challenge to solve.</p>
+    <p class="section-text" style="margin-top:12px;">And notice how different questions invite <em>different kinds of solutions</em>. There are many ways to reframe the same problem — each one shifts your perspective.</p>
+  </section>
+
+  <!-- SECTION 5: Your turn -->
+  <section class="section accent-green" aria-labelledby="sec5-heading">
+    <h2 class="section-heading" id="sec5-heading">Your turn — shape up your own problem!</h2>
+    <p class="section-text" style="margin-bottom:24px;">Write down a problem that's been troubling you. Watch it become a rock.</p>
+
+    <div class="your-problem-area">
+
+      <!-- Problem input -->
+      <div class="input-group">
+        <label class="input-label" for="your-problem-input">What's your problem?</label>
+        <textarea class="styled-input" id="your-problem-input" rows="2" placeholder="e.g. I feel overwhelmed at work." aria-describedby="problem-hint" maxlength="200"></textarea>
+        <p id="problem-hint" style="font-size:0.82rem;color:#5a6080;margin-top:2px;">Write it out, then press the button.</p>
+        <button class="btn btn-primary" id="your-problem-btn" style="align-self:flex-start; margin-top:4px;">
+          <span>Turn it into a rock</span> 🪨
+        </button>
+      </div>
+
+      <!-- Rock display -->
+      <div class="your-problem-rock-wrap" id="your-rock-wrap">
+        <div class="your-rock-display" id="your-rock-display" aria-live="polite">
+          <svg id="your-rock-svg" width="200" height="160" viewBox="0 0 200 160" aria-hidden="true">
+            <polygon id="your-rock-poly" points="100,8 162,28 185,88 170,140 108,152 52,148 15,98 20,40 58,14" fill="#9b8c7a" stroke="#7a6e60" stroke-width="2"/>
+            <polygon points="100,22 152,38 170,88 157,132 108,140 56,137 24,100 28,50 62,26" fill="#b8a896" opacity="0.28"/>
+            <ellipse cx="70" cy="110" rx="6" ry="4" fill="#7a6e60" opacity="0.3"/>
+            <ellipse cx="128" cy="118" rx="5" ry="3.5" fill="#7a6e60" opacity="0.25"/>
+            <ellipse cx="100" cy="88" rx="4" ry="3" fill="#7a6e60" opacity="0.2"/>
+          </svg>
+          <div class="your-rock-label" id="your-rock-label"></div>
+        </div>
+      </div>
+
+      <!-- Questions area -->
+      <div class="input-group" id="questions-section" style="display:none;">
+        <div class="hint-bar" role="note">
+          💡 <strong>Tip:</strong> Start your question with <strong>"How to,"</strong> <strong>"How might,"</strong> or <strong>"What might be all the"</strong> to unlock creative thinking.
+        </div>
+
+        <div class="questions-display" id="questions-display" aria-live="polite" aria-label="Your reframed questions">
+          <!-- Questions appear here -->
+        </div>
+
+        <div id="question-input-area">
+          <label class="input-label" for="question-input" id="question-prompt">Now turn it into a question — word 1 of 3:</label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+            <input class="styled-input" id="question-input" type="text" placeholder='e.g. "How might I manage my workload better?"' maxlength="200" style="flex:1;min-width:200px;resize:none;" aria-describedby="question-hint"/>
+            <button class="btn btn-secondary" id="add-question-btn" style="white-space:nowrap;">Add question ✦</button>
+          </div>
+          <p id="question-hint" style="font-size:0.82rem;color:#5a6080;margin-top:4px;">Try 3 different ways of asking about the same problem.</p>
+        </div>
+
+        <!-- Success -->
+        <div class="success-banner" id="success-banner" role="alert">
+          <h3>🎉 Wow, you reframed a problem three different ways!</h3>
+          <p>Each question opens a different door. You're already thinking like a creative problem solver.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing-box" role="complementary" aria-label="Key takeaway">
+    <h2>You're shaping up to be a creative problem solver!</h2>
+    <p>When you start seeing problems as questions and challenges to be solved, your mind is primed for creative thinking.</p>
+    <p>The next time you feel frustrated, try phrasing it starting with:</p>
+    <span class="magic-phrase">"What might be all the…"</span>
+    <p style="margin-top:20px;font-size:0.95rem;opacity:0.85;">…and notice what happens to your thoughts. ✨</p>
+  </div>
+
+</div><!-- /game-wrap -->
+
+<script>
+/* ── DATA ── */
+const reframes = {
+  money: [
+    { shape: 'circle', color: '#ac1ca1', label: 'How might we make more money?' },
+    { shape: 'triangle', color: '#1479d1', label: 'How to cut costs?' },
+    { shape: 'square', color: '#89d808', label: 'How to need less money?' },
+  ],
+  time: [
+    { shape: 'circle', color: '#ffa32a', label: 'How to prioritize my tasks?' },
+    { shape: 'triangle', color: '#ac1ca1', label: 'How might I make more time for things I care about?' },
+    { shape: 'square', color: '#1479d1', label: 'How to feel like I have all the time I need?' },
+  ],
+  know: [
+    { shape: 'circle', color: '#89d808', label: 'What might be all the resources for learning this skill?' },
+    { shape: 'triangle', color: '#ffa32a', label: 'How might I draw from what I do know?' },
+    { shape: 'square', color: '#ac1ca1', label: 'How to get help?' },
+  ],
+};
+
+const shapeColors = ['#ac1ca1', '#1479d1', '#89d808'];
+const shapeTypes = ['circle', 'triangle', 'square'];
+
+/* ── HELPERS ── */
+function announce(msg) {
+  const el = document.getElementById('aria-announcer');
+  el.textContent = '';
+  requestAnimationFrame(() => { el.textContent = msg; });
+}
+
+function makeShapeSVG(type, color, size = 64) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', size);
+  svg.setAttribute('height', size);
+  svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+  svg.setAttribute('aria-hidden', 'true');
+  const s = size, h = size / 2;
+
+  // Inner highlight
+  function addHighlight(el, fx, fy, fr) {
+    const c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', fx); c.setAttribute('cy', fy); c.setAttribute('r', fr);
+    c.setAttribute('fill', 'white'); c.setAttribute('opacity', '0.3');
+    svg.appendChild(c);
+  }
+
+  if (type === 'circle') {
+    const c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', h); c.setAttribute('cy', h); c.setAttribute('r', h - 3);
+    c.setAttribute('fill', color);
+    svg.appendChild(c);
+    addHighlight(svg, h * 0.7, h * 0.65, h * 0.22);
+  } else if (type === 'triangle') {
+    const t = document.createElementNS(ns, 'polygon');
+    t.setAttribute('points', `${h},4 ${s - 4},${s - 5} 4,${s - 5}`);
+    t.setAttribute('fill', color);
+    svg.appendChild(t);
+    addHighlight(svg, h, h * 0.82, h * 0.18);
+  } else {
+    const r = document.createElementNS(ns, 'rect');
+    r.setAttribute('x', '5'); r.setAttribute('y', '5');
+    r.setAttribute('width', s - 10); r.setAttribute('height', s - 10);
+    r.setAttribute('rx', '8'); r.setAttribute('fill', color);
+    svg.appendChild(r);
+    addHighlight(svg, h * 0.7, h * 0.68, h * 0.18);
+  }
+  return svg;
+}
+
+/* ── PROBLEM ROCK INTERACTION ── */
+let lastProblem = null;
+
+document.querySelectorAll('.problem-rock-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const prob = this.dataset.problem;
+    handleRockClick(prob, this);
+  });
+  btn.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      const prob = this.dataset.problem;
+      handleRockClick(prob, this);
+    }
+  });
+});
+
+function handleRockClick(prob, btn) {
+  // Clear previous reframes
+  clearReframes();
+
+  // Brief visual flash on the rock
+  btn.style.transition = 'transform 0.12s';
+  btn.style.transform = 'scale(1.08)';
+  setTimeout(() => { btn.style.transform = ''; }, 180);
+
+  // Delay slightly then show reframes
+  setTimeout(() => showReframes(prob), 250);
+
+  document.getElementById('click-cta').style.display = 'none';
+
+  const labels = {
+    money: 'There isn\'t enough money',
+    time: 'There isn\'t enough time',
+    know: 'I don\'t know how to do it'
+  };
+  announce(`Reframing the problem: "${labels[prob]}". Three new questions will appear.`);
+}
+
+function clearReframes() {
+  const container = document.getElementById('reframe-results');
+  const children = Array.from(container.children);
+  children.forEach((el, i) => {
+    el.classList.remove('visible');
+    setTimeout(() => el.remove(), 300);
+  });
+}
+
+function showReframes(prob) {
+  const container = document.getElementById('reframe-results');
+  const data = reframes[prob];
+
+  data.forEach((item, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'reframe-shape';
+    wrap.setAttribute('role', 'listitem');
+
+    const svgEl = makeShapeSVG(item.shape, item.color, 72);
+    const label = document.createElement('div');
+    label.className = 'shape-label';
+    label.textContent = item.label;
+
+    wrap.appendChild(svgEl);
+    wrap.appendChild(label);
+    container.appendChild(wrap);
+
+    setTimeout(() => wrap.classList.add('visible'), 80 + i * 180);
+  });
+}
+
+/* ── YOUR PROBLEM ── */
+const yourProblemInput = document.getElementById('your-problem-input');
+const yourProblemBtn = document.getElementById('your-problem-btn');
+const yourRockDisplay = document.getElementById('your-rock-display');
+const yourRockLabel = document.getElementById('your-rock-label');
+const questionsSection = document.getElementById('questions-section');
+
+yourProblemBtn.addEventListener('click', function () {
+  const val = yourProblemInput.value.trim();
+  if (!val) {
+    yourProblemInput.focus();
+    yourProblemInput.setAttribute('aria-invalid', 'true');
+    return;
+  }
+  yourProblemInput.removeAttribute('aria-invalid');
+  yourRockLabel.textContent = val;
+  yourRockDisplay.classList.add('visible');
+  questionsSection.style.display = 'flex';
+  questionsSection.style.flexDirection = 'column';
+  questionsSection.style.gap = '16px';
+  questionsSection.style.alignItems = 'center';
+  questionsSection.style.width = '100%';
+
+  resetQuestions();
+
+  setTimeout(() => {
+    document.getElementById('question-input').focus();
+    document.getElementById('questions-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 400);
+
+  announce(`Your problem "${val}" has been turned into a rock. Now let's reframe it as questions.`);
+});
+
+yourProblemInput.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    yourProblemBtn.click();
+  }
+});
+
+/* ── QUESTIONS ── */
+let questionCount = 0;
+const maxQuestions = 3;
+
+function resetQuestions() {
+  questionCount = 0;
+  document.getElementById('questions-display').innerHTML = '';
+  document.getElementById('question-input').value = '';
+  document.getElementById('success-banner').classList.remove('show');
+  document.getElementById('question-input-area').style.display = 'block';
+  updateQuestionPrompt();
+}
+
+function updateQuestionPrompt() {
+  const prompt = document.getElementById('question-prompt');
+  const words = ['first', 'second', 'third'];
+  if (questionCount < maxQuestions) {
+    prompt.textContent = `Now turn it into a question — wording ${questionCount + 1} of 3:`;
+  }
+}
+
+document.getElementById('add-question-btn').addEventListener('click', addQuestion);
+document.getElementById('question-input').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') { e.preventDefault(); addQuestion(); }
+});
+
+function addQuestion() {
+  if (questionCount >= maxQuestions) return;
+  const input = document.getElementById('question-input');
+  const val = input.value.trim();
+  if (!val) {
+    input.focus();
+    input.setAttribute('aria-invalid', 'true');
+    return;
+  }
+  input.removeAttribute('aria-invalid');
+
+  const shapeType = shapeTypes[questionCount % 3];
+  const color = shapeColors[questionCount % 3];
+
+  const entry = document.createElement('div');
+  entry.className = 'question-entry';
+  entry.setAttribute('role', 'listitem');
+
+  const iconWrap = document.createElement('div');
+  iconWrap.className = 'q-shape-icon';
+  iconWrap.setAttribute('aria-hidden', 'true');
+  iconWrap.appendChild(makeShapeSVG(shapeType, color, 40));
+
+  const text = document.createElement('div');
+  text.className = 'q-text';
+  text.textContent = val;
+
+  entry.appendChild(iconWrap);
+  entry.appendChild(text);
+  document.getElementById('questions-display').appendChild(entry);
+
+  setTimeout(() => entry.classList.add('visible'), 30);
+
+  questionCount++;
+  input.value = '';
+
+  if (questionCount >= maxQuestions) {
+    document.getElementById('question-input-area').style.display = 'none';
+    const banner = document.getElementById('success-banner');
+    banner.classList.add('show');
+    banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    announce('Amazing! You have reframed your problem three different ways. You are a creative problem solver!');
+  } else {
+    updateQuestionPrompt();
+    announce(`Question ${questionCount} added. ${maxQuestions - questionCount} more to go.`);
+    input.focus();
+  }
+}
+
+</script>
+</body>
+</html>
