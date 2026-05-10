@@ -25,18 +25,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--ink);m
 .skip-link:focus{top:0;}
 .stage{max-width:950px;margin:0 auto;padding:0 16px 80px;}
 
-/* Panels */
 .panel{display:none;}
 .panel.active{display:block;}
 .panel-inner{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;}
 
-/* Header */
 .game-header{text-align:center;padding:52px 24px 32px;}
 .game-header h1{font-family:'Fraunces',serif;font-size:clamp(3rem,7vw,5.2rem);font-weight:900;color:var(--navy);line-height:1;letter-spacing:-.02em;}
 .game-header h1 span{color:var(--purple);}
 .subtitle{font-size:clamp(1rem,2.2vw,1.2rem);color:var(--ink);margin:14px auto 0;max-width:560px;line-height:1.6;}
 
-/* Card */
 .card{background:#fff;border-radius:24px;padding:40px 40px 36px;box-shadow:0 4px 28px rgba(13,43,110,.09);position:relative;overflow:hidden;}
 .card::before{content:'';position:absolute;top:0;left:0;width:6px;height:100%;border-radius:24px 0 0 24px;}
 .card.c-purple::before{background:var(--purple);}
@@ -51,7 +48,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--ink);m
 .body-text+.body-text{margin-top:14px;}
 .hl{background:rgba(172,28,161,.1);border-radius:5px;padding:1px 5px;font-weight:600;}
 
-/* Next button */
 .next-btn{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:13px 32px;border-radius:50px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:1rem;background:var(--navy);color:#fff;box-shadow:0 4px 16px rgba(13,43,110,.25);transition:transform .15s,box-shadow .15s,background .15s;}
 .next-btn:hover{background:var(--navy-dk);transform:translateY(-2px);box-shadow:0 6px 22px rgba(13,43,110,.32);}
 .next-btn:active{transform:none;}
@@ -61,11 +57,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--ink);m
 .nb-purple{background:var(--purple);box-shadow:0 4px 16px rgba(172,28,161,.28);}
 .nb-purple:hover{background:var(--purple-dk);}
 
-/* Scenes */
 .ground-scene,.transition-scene{margin:32px 0 14px;}
 .ground-scene svg,.transition-scene svg{display:block;width:100%;max-width:640px;margin:0 auto;overflow:visible;}
 
-/* Problem rocks */
 .problems-scene{margin:24px 0 0;}
 #problem-svg{display:block;width:100%;max-width:840px;margin:0 auto;overflow:visible;}
 .rock-g{cursor:pointer;transition:transform .22s cubic-bezier(.22,.68,0,1.2);}
@@ -76,101 +70,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--ink);m
 .cta-hint{text-align:center;font-size:.9rem;font-weight:600;color:var(--purple);margin-top:14px;transition:opacity .4s;animation:phint 2.2s ease-in-out infinite;}
 @keyframes phint{0%,100%{opacity:.55}50%{opacity:1}}
 
-/* Reframe shapes */
-.reframe-row{display:flex;justify-content:center;gap:clamp(12px,2.5vw,32px);flex-wrap:wrap;padding:28px 0 8px;}
-.reframe-item{display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transform:translateY(24px) scale(.82);transition:opacity .5s cubic-bezier(.22,.68,0,1.2),transform .5s cubic-bezier(.22,.68,0,1.2);}
-.reframe-item.show{opacity:1;transform:none;}
-.reframe-item.show svg,
-.your-shape-item.show svg{
-  opacity:1 !important;
-  visibility:visible !important;
+/* ─── REFRAME ROW: shapes shown after clicking a rock ─── */
+.reframe-row{
+  display:flex;
+  justify-content:center;
+  gap:clamp(12px,2.5vw,32px);
+  flex-wrap:wrap;
+  padding:28px 0 8px;
+  min-height:0;
 }
-.reframe-label{font-size:.88rem;font-weight:600;color:var(--ink);text-align:center;max-width:148px;line-height:1.38;background:#fff;border-radius:10px;padding:8px 12px;box-shadow:0 2px 10px rgba(13,43,110,.1);}
-.reframe-item,
-.your-shape-item{
-  min-width:80px;
+
+/* Each item is hidden via inline style by JS, then revealed via inline style */
+.reframe-item{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:flex-start;
+  gap:10px;
 }
-.shape{
-  width:80px;
-  height:80px;
-  flex-shrink:0;
-  position:relative;
-}
+.reframe-label{font-size:.88rem;font-weight:600;color:var(--ink);text-align:center;max-width:148px;line-height:1.38;background:#fff;border-radius:10px;padding:8px 12px;box-shadow:0 2px 10px rgba(13,43,110,.1);}
 
-.shape::after{
-  content:'';
-  position:absolute;
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:rgba(255,255,255,.28);
-  top:16px;
-  left:18px;
-}
-
-.shape.circle{
-  border-radius:50%;
-}
-
-.shape.square{
-  border-radius:12px;
-}
-
-.shape.triangle{
-  width:0;
-  height:0;
-  border-left:40px solid transparent;
-  border-right:40px solid transparent;
-  border-bottom:72px solid;
-  background:none !important;
-}
-
-.shape.triangle::after{
-  top:34px;
-  left:-9px;
-}
-
-.small-shape{
-  width:72px;
-  height:72px;
-}
-
-.small-shape.triangle{
-  border-left:36px solid transparent;
-  border-right:36px solid transparent;
-  border-bottom:65px solid;
-}
-
-.reframe-item svg,
-.your-shape-item svg{
-  display:block !important;
-  width:80px !important;
-  height:80px !important;
-  min-width:80px;
-  min-height:80px;
-  max-width:80px;
-  max-height:80px;
-  flex:0 0 80px;
-  overflow:visible;
-}
-
-.your-shape-item svg{
-  width:72px !important;
-  height:72px !important;
-  min-width:72px;
-  min-height:72px;
-  max-width:72px;
-  max-height:72px;
-  flex:0 0 72px;
-}
-
-
-
-/* Notice box (merged panel 4) */
+/* Notice box */
 .notice-box{display:none;background:rgba(13,43,110,.05);border-left:4px solid var(--navy);border-radius:0 14px 14px 0;padding:18px 22px;margin-top:8px;max-width:680px;}
 .notice-box.show{display:block;animation:fadeSlide .5s ease both;}
 @keyframes fadeSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -196,10 +115,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--ink);m
 .ab-blue{background:var(--blue);color:#fff;box-shadow:0 4px 12px rgba(20,121,209,.28);}
 .ab-blue:hover{background:#0f5fa8;transform:translateY(-2px);}
 
-/* Your rock */
-.your-rock-zone{display:none;width:100%;max-width:560px;flex-direction:column;align-items:center;gap:14px;}
-.your-rock-wrap{opacity:0;transform:scale(.75);transition:opacity .6s ease,transform .6s cubic-bezier(.22,.68,0,1.2);}
-.your-rock-wrap.show{opacity:1;transform:none;}
+/* Your rock zone — always flex, hidden via inline style on wrap */
+.your-rock-zone{
+  display:flex;
+  width:100%;
+  max-width:560px;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+}
+.your-rock-wrap{
+  /* hidden/shown entirely via inline styles set by JS */
+}
 
 /* Question section */
 .q-section{display:none;width:100%;flex-direction:column;align-items:center;gap:18px;}
@@ -209,12 +136,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--ink);m
 .hint-bar{background:rgba(172,28,161,.07);border:1.5px solid rgba(172,28,161,.18);border-radius:12px;padding:13px 18px;font-size:.9rem;color:var(--navy);width:100%;max-width:560px;line-height:1.55;}
 .hint-bar strong{color:var(--purple);}
 
-/* Questions as shapes */
-.your-shapes-row{display:flex;justify-content:center;gap:clamp(12px,2.5vw,28px);flex-wrap:wrap;padding:4px 0;width:100%;max-width:560px;}
-.your-shape-item{display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transform:translateY(20px) scale(.82);transition:opacity .5s cubic-bezier(.22,.68,0,1.2),transform .5s cubic-bezier(.22,.68,0,1.2);max-width:150px;}
-.your-shape-item.show{
-  opacity:1 !important;
-  transform:translateY(0) scale(1) !important;
+/* Your shapes row — items shown/hidden via inline styles */
+.your-shapes-row{
+  display:flex;
+  justify-content:center;
+  gap:clamp(12px,2.5vw,28px);
+  flex-wrap:wrap;
+  padding:4px 0;
+  width:100%;
+  max-width:560px;
+}
+.your-shape-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  max-width:150px;
 }
 .your-shape-text{font-size:.84rem;font-weight:600;color:var(--ink);text-align:center;line-height:1.38;background:#fff;border-radius:10px;padding:7px 10px;box-shadow:0 2px 10px rgba(13,43,110,.1);}
 
@@ -226,18 +163,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--ink);m
 .success-box h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;margin-bottom:8px;}
 .success-box p{font-size:.95rem;line-height:1.6;}
 
-/* Closing */
 .closing-box{background:linear-gradient(135deg,var(--navy),#1c3e8a);border-radius:24px;padding:48px 40px;margin-top:24px;text-align:center;color:#fff;box-shadow:0 8px 36px rgba(13,43,110,.28);}
 @media(max-width:600px){.closing-box{padding:32px 24px;}}
 .closing-box h2{font-family:'Fraunces',serif;font-size:clamp(1.5rem,3.5vw,2.3rem);font-weight:900;margin-bottom:18px;color:var(--orange);}
 .closing-box p{font-size:clamp(1rem,1.8vw,1.1rem);line-height:1.72;max-width:600px;margin:0 auto 14px;}
 .magic-phrase{display:inline-block;background:var(--orange);color:var(--ink);padding:7px 22px;border-radius:50px;font-weight:700;font-size:1rem;margin-top:6px;}
 .closing-note{font-size:.95rem;opacity:.75;margin-top:18px;}
-svg{
-  overflow:visible;
-}
 
-/* Print / PDF */
 @media print{
   body{background:#fff!important;}
   .stage,#announcer,.skip-link{display:none!important;}
@@ -252,7 +184,6 @@ svg{
 <a href="#main" class="skip-link">Skip to main content</a>
 <div aria-live="polite" id="announcer"></div>
 
-<!-- PRINT PAGE -->
 <div id="print-page" style="font-family:'DM Sans',sans-serif;max-width:680px;margin:0 auto;padding:48px 40px;color:#0c1a4a;">
   <h1 style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:900;color:#0d2b6e;margin-bottom:4px;">Shape Up</h1>
   <p style="font-size:1rem;color:#5a6080;margin-bottom:36px;border-bottom:2px solid #ebecf4;padding-bottom:16px;">My Reframing Worksheet</p>
@@ -275,7 +206,6 @@ svg{
       <div class="card c-purple">
         <h2 class="card-heading" id="p1-h">We all have problems.</h2>
         <p class="body-text">Things that frustrate us, bother us, or get in our way. Problems can feel prickly, uncomfortable, and even painful.</p>
-
         <div class="ground-scene" role="img" aria-label="Three jagged gray-brown rocks resting on a shared ground plane">
           <svg viewBox="0 0 640 215" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <rect x="0" y="178" width="640" height="37" fill="#c8bfb0" opacity="0.42"/>
@@ -303,7 +233,6 @@ svg{
             </g>
           </svg>
         </div>
-
         <p class="body-text">Dwelling on problems can get us stuck — but with a tool called <span class="hl">reframing</span>, we can turn many problems into opportunities for positive change.</p>
         <button class="next-btn nb-purple" data-next="2">
           What is reframing?
@@ -319,30 +248,13 @@ svg{
       <div class="card c-blue">
         <h2 class="card-heading" id="p2-h">What is reframing?</h2>
         <p class="body-text">When we <strong>reframe</strong>, we change the <em>shape</em> of our problem into something we can use: a springboard, a ramp, or a step to something new.</p>
-
-        <!--
-          Panel 2 scene.
-          Ground at y=160. ViewBox height = 175 (ground + 15px strip).
-          All shapes bottom-aligned to ground line y=160.
-
-          Circle r=60: center y = 160-60 = 100. Base at 160. ✓
-          Triangle: base vertices at y=160, apex at y=160-120=40. ✓
-          Square 120x120: top y = 160-120 = 40, bottom y = 160. ✓
-
-          Horizontal positions: circle cx=90, triangle cx=270, square left=390 (cx=450).
-          Rocks fade out, shapes fade in, everything shares the same ground.
-        -->
         <div class="transition-scene" role="img" aria-label="Gray-brown rocks transforming into colorful shapes">
           <svg viewBox="0 0 560 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Ground -->
             <rect x="0" y="160" width="560" height="15" fill="#c8bfb0" opacity="0.35"/>
             <line x1="0" y1="160" x2="560" y2="160" stroke="#a89880" stroke-width="1.2" opacity="0.5"/>
-            <!-- Shadows stay in both states -->
             <ellipse cx="90"  cy="163" rx="64" ry="5" fill="#8a7060" opacity="0.15"/>
             <ellipse cx="270" cy="163" rx="70" ry="5" fill="#8a7060" opacity="0.15"/>
             <ellipse cx="450" cy="163" rx="64" ry="5" fill="#8a7060" opacity="0.15"/>
-
-            <!-- ROCKS (fade out) — all bases anchored at y=160 via translate -->
             <g id="tA" style="opacity:1;">
               <g transform="translate(90,160)">
                 <polygon points="0,0 -22,-5 -28,-50 -14,-104 4,-120 22,-112 30,-74 26,-34 12,-4" fill="#9b8c7a" stroke="#7a6e60" stroke-width="1.2"/>
@@ -357,24 +269,16 @@ svg{
                 <ellipse cx="4" cy="-54" rx="3" ry="2" fill="#5e5448" opacity="0.28"/>
               </g>
             </g>
-
-            <!-- SHAPES (fade in) — all bottoms precisely at y=160 -->
             <g id="tB" style="opacity:0;">
-              <!-- Circle: r=60, cy = 160-60 = 100 -->
               <circle cx="90"  cy="100" r="60"  fill="#ac1ca1"/>
               <circle cx="72"  cy="82"  r="13"  fill="#cc44c4" opacity="0.28"/>
-
-              <!-- Triangle: base y=160, width=128, apex y=160-118=42 -->
               <polygon points="270,42 206,160 334,160" fill="#1479d1"/>
               <circle  cx="270" cy="112" r="10" fill="#3892e6" opacity="0.28"/>
-
-              <!-- Square: 120x120, top y=160-120=40 -->
               <rect x="390" y="40" width="120" height="120" rx="14" fill="#89d808"/>
               <circle cx="412" cy="62"  r="12"  fill="#a0ee22" opacity="0.26"/>
             </g>
           </svg>
         </div>
-
         <p class="body-text">When we change the shape of a problem, we change how we think about it — and that opens the door to creative solutions.</p>
         <button class="next-btn" data-next="3">
           Try it yourself
@@ -384,116 +288,54 @@ svg{
     </div>
   </div>
 
-  <!-- PANEL 3 (includes merged panel 4 notice) -->
+  <!-- PANEL 3 -->
   <div class="panel" id="panel-3" role="region" aria-labelledby="p3-h">
     <div class="panel-inner" style="margin-top:24px;">
       <div class="card c-orange">
         <h2 class="card-heading" id="p3-h">Click a problem rock to reframe it.</h2>
         <p class="body-text">Take a look at these problems. Are any of them familiar? Choose one to reframe and reshape.</p>
 
-        <!--
-          Three rocks on a shared ground at y=182.
-          ViewBox: 0 0 800 195 (200 wide per rock slot, ground strip at bottom).
-
-          Rock 0 (money): LANDSCAPE / sideways — wide & low, cx=133.
-            Width ~190, height ~80. Base at y=182.
-            Points form a flat wide boulder. Text fits on one line.
-
-          Rock 1 (time): medium oval boulder, cx=400.
-            Width ~180, height ~100. Base at y=182.
-
-          Rock 2 (know): taller boulder, cx=667.
-            Width ~140, height ~120. Base at y=182.
-        -->
         <div class="problems-scene" id="problems-scene">
-          <svg id="problem-svg" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg"
-               role="group" aria-label="Three clickable problem rocks">
-            <!-- Ground -->
+          <svg id="problem-svg" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Three clickable problem rocks">
             <rect x="0" y="182" width="800" height="18" fill="#c8bfb0" opacity="0.38"/>
             <line x1="0" y1="182" x2="800" y2="182" stroke="#a89880" stroke-width="1.5" opacity="0.55"/>
-            <!-- Shadows -->
             <ellipse cx="133" cy="185" rx="96" ry="5.5" fill="#8a7060" opacity="0.20"/>
             <ellipse cx="400" cy="185" rx="94" ry="6"   fill="#8a7060" opacity="0.20"/>
             <ellipse cx="667" cy="185" rx="76" ry="5.5" fill="#8a7060" opacity="0.20"/>
-
-            <!-- Rock 0: MONEY — landscape/sideways, wide & flat -->
-            <!--
-              Base at y=182, cx=133. Width ~190 (x=38 to x=228), height ~82 (top at y=100).
-              Text: "There isn't enough money." centered at ~y=148 (single line, font 12).
-            -->
-            <g id="rock-0" class="rock-g" tabindex="0" role="button"
-               aria-label="Problem: There isn't enough money — click to reframe">
-              <polygon class="rock-poly"
-                points="38,182 28,172 24,154 32,130 52,112 82,102 116,98 152,98 182,104 208,118 222,138 224,160 216,176 200,182"
-                fill="#9b8c7a" stroke="#7a6e60" stroke-width="1.8"/>
-              <polygon
-                points="44,178 36,170 32,154 40,132 58,116 86,108 118,104 152,104 180,110 204,122 216,140 218,158 210,173 196,178"
-                fill="#c8b8a4" opacity="0.26"/>
+            <g id="rock-0" class="rock-g" tabindex="0" role="button" aria-label="Problem: There isn't enough money — click to reframe">
+              <polygon class="rock-poly" points="38,182 28,172 24,154 32,130 52,112 82,102 116,98 152,98 182,104 208,118 222,138 224,160 216,176 200,182" fill="#9b8c7a" stroke="#7a6e60" stroke-width="1.8"/>
+              <polygon points="44,178 36,170 32,154 40,132 58,116 86,108 118,104 152,104 180,110 204,122 216,140 218,158 210,173 196,178" fill="#c8b8a4" opacity="0.26"/>
               <ellipse cx="82"  cy="148" rx="5"   ry="3"   fill="#6e6258" opacity="0.28"/>
               <ellipse cx="170" cy="140" rx="4"   ry="2.5" fill="#6e6258" opacity="0.24"/>
               <ellipse cx="128" cy="128" rx="3.5" ry="2"   fill="#6e6258" opacity="0.20"/>
-              <!-- One line of text, centered in the wide rock -->
-              <text x="128" y="147" text-anchor="middle" dominant-baseline="middle"
-                font-family="'DM Sans',sans-serif" font-size="12.5" font-weight="700"
-                fill="#3a3028" pointer-events="none">There isn't enough money.</text>
+              <text x="128" y="147" text-anchor="middle" dominant-baseline="middle" font-family="'DM Sans',sans-serif" font-size="12.5" font-weight="700" fill="#3a3028" pointer-events="none">There isn't enough money.</text>
             </g>
-
-            <!-- Rock 1: TIME — medium oval boulder, cx=400 -->
-            <!--
-              Base at y=182. Spans x=308 to x=492 (width 184). Top at y=80.
-              Text centered: two short lines at y=128 and y=146.
-            -->
-            <g id="rock-1" class="rock-g" tabindex="0" role="button"
-               aria-label="Problem: There isn't enough time — click to reframe">
-              <polygon class="rock-poly"
-                points="308,182 296,172 290,144 298,112 318,88 350,78 400,76 450,80 474,100 484,130 480,158 466,174 448,182"
-                fill="#8a7e70" stroke="#6e6258" stroke-width="1.8"/>
-              <polygon
-                points="312,178 302,170 296,144 304,114 322,92 352,84 400,82 448,86 470,104 480,130 476,156 464,171 450,178"
-                fill="#c8b8a4" opacity="0.24"/>
+            <g id="rock-1" class="rock-g" tabindex="0" role="button" aria-label="Problem: There isn't enough time — click to reframe">
+              <polygon class="rock-poly" points="308,182 296,172 290,144 298,112 318,88 350,78 400,76 450,80 474,100 484,130 480,158 466,174 448,182" fill="#8a7e70" stroke="#6e6258" stroke-width="1.8"/>
+              <polygon points="312,178 302,170 296,144 304,114 322,92 352,84 400,82 448,86 470,104 480,130 476,156 464,171 450,178" fill="#c8b8a4" opacity="0.24"/>
               <ellipse cx="334" cy="130" rx="5"   ry="3"   fill="#6e6258" opacity="0.28"/>
               <ellipse cx="458" cy="128" rx="4"   ry="2.5" fill="#6e6258" opacity="0.24"/>
               <ellipse cx="396" cy="104" rx="3.5" ry="2"   fill="#6e6258" opacity="0.20"/>
-              <text x="400" y="124" text-anchor="middle"
-                font-family="'DM Sans',sans-serif" font-size="13" font-weight="700"
-                fill="#3a3028" pointer-events="none">There isn't</text>
-              <text x="400" y="142" text-anchor="middle"
-                font-family="'DM Sans',sans-serif" font-size="13" font-weight="700"
-                fill="#3a3028" pointer-events="none">enough time.</text>
+              <text x="400" y="124" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" font-weight="700" fill="#3a3028" pointer-events="none">There isn't</text>
+              <text x="400" y="142" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" font-weight="700" fill="#3a3028" pointer-events="none">enough time.</text>
             </g>
-
-            <!-- Rock 2: KNOW — taller boulder, cx=667 -->
-            <!--
-              Base at y=182. Spans x=594 to x=740 (width 146). Top at y=60.
-              Text centered: two lines at y=122 and y=140.
-            -->
-            <g id="rock-2" class="rock-g" tabindex="0" role="button"
-               aria-label="Problem: I don't know how to do it — click to reframe">
-              <polygon class="rock-poly"
-                points="594,182 578,176 560,156 552,124 560,92 578,68 610,58 648,60 676,76 694,100 694,132 680,158 660,176 638,182"
-                fill="#7d7060" stroke="#5e5448" stroke-width="1.8"/>
-              <polygon
-                points="598,178 584,173 568,155 562,126 568,96 584,74 612,64 648,66 674,80 690,102 690,130 677,154 659,172 640,178"
-                fill="#c8b8a4" opacity="0.22"/>
+            <g id="rock-2" class="rock-g" tabindex="0" role="button" aria-label="Problem: I don't know how to do it — click to reframe">
+              <polygon class="rock-poly" points="594,182 578,176 560,156 552,124 560,92 578,68 610,58 648,60 676,76 694,100 694,132 680,158 660,176 638,182" fill="#7d7060" stroke="#5e5448" stroke-width="1.8"/>
+              <polygon points="598,178 584,173 568,155 562,126 568,96 584,74 612,64 648,66 674,80 690,102 690,130 677,154 659,172 640,178" fill="#c8b8a4" opacity="0.22"/>
               <ellipse cx="576" cy="140" rx="4.5" ry="2.8" fill="#5e5448" opacity="0.28"/>
               <ellipse cx="654" cy="124" rx="3.5" ry="2.2" fill="#5e5448" opacity="0.24"/>
               <ellipse cx="624" cy="98"  rx="3"   ry="1.8" fill="#5e5448" opacity="0.20"/>
-              <text x="644" y="120" text-anchor="middle"
-                font-family="'DM Sans',sans-serif" font-size="12.5" font-weight="700"
-                fill="#3a3028" pointer-events="none">I don't know</text>
-              <text x="644" y="138" text-anchor="middle"
-                font-family="'DM Sans',sans-serif" font-size="12.5" font-weight="700"
-                fill="#3a3028" pointer-events="none">how to do it.</text>
+              <text x="644" y="120" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12.5" font-weight="700" fill="#3a3028" pointer-events="none">I don't know</text>
+              <text x="644" y="138" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12.5" font-weight="700" fill="#3a3028" pointer-events="none">how to do it.</text>
             </g>
           </svg>
         </div>
 
         <p class="cta-hint" id="click-cta">Click any rock to see it reframed</p>
 
-        <!-- Reframe shapes (HTML, expands panel naturally) -->
+        <!-- Reframe shapes appear here -->
         <div class="reframe-row" id="reframe-row" role="region" aria-live="polite" aria-label="Reframed questions"></div>
 
-        <!-- Notice (merged panel 4) — appears after shapes land -->
         <div class="notice-box" id="notice-box" role="note">
           <p>Notice how wording problems as <strong>questions</strong> changes how we think about them. Instead of a complaint, we have an open-ended challenge to solve.</p>
           <p>And different questions invite <em>different kinds of solutions</em>. There are many ways to reframe the same problem — each one shifts your perspective.</p>
@@ -512,43 +354,29 @@ svg{
     <div class="panel-inner" style="margin-top:24px;">
       <div class="card c-green">
         <h2 class="card-heading" id="p5-h">Let's try it. Write down a problem that's been troubling you.</h2>
-
         <div class="your-area">
 
           <!-- Step A: enter problem -->
           <div class="input-group" id="step-a">
             <label class="input-label" for="prob-input">What's your problem?</label>
-            <textarea class="styled-input" id="prob-input" rows="2"
-              placeholder="e.g. I feel overwhelmed at work."
-              maxlength="200" aria-describedby="prob-hint"></textarea>
+            <textarea class="styled-input" id="prob-input" rows="2" placeholder="e.g. I feel overwhelmed at work." maxlength="200" aria-describedby="prob-hint"></textarea>
             <p id="prob-hint" class="hint-sm">Write it out, then press the button.</p>
             <button class="action-btn ab-purple" id="make-rock-btn">Turn it into a rock</button>
           </div>
 
-          <!-- Your rock — appears after clicking button -->
+          <!-- Your rock zone -->
           <div class="your-rock-zone" id="your-rock-zone">
             <div class="your-rock-wrap" id="your-rock-wrap">
-              <!--
-                Rock with ground line. viewBox 0 0 280 215.
-                Ground at y=196. Rock base at y=196.
-                Text lines centered around rock midpoint ~y=118.
-              -->
-              <svg id="your-rock-svg" width="280" height="215" viewBox="0 0 280 215"
-                   role="img" aria-labelledby="yr-title" xmlns="http://www.w3.org/2000/svg">
+              <svg id="your-rock-svg" width="280" height="215" viewBox="0 0 280 215" role="img" aria-labelledby="yr-title" xmlns="http://www.w3.org/2000/svg">
                 <title id="yr-title">Your problem shown as a rock</title>
                 <rect x="0" y="196" width="280" height="19" fill="#c8bfb0" opacity="0.38"/>
                 <line x1="16" y1="196" x2="264" y2="196" stroke="#a89880" stroke-width="1.2" opacity="0.5"/>
                 <ellipse cx="140" cy="200" rx="96" ry="7.5" fill="#a89880" opacity="0.18"/>
-                <polygon
-                  points="140,196 98,191 70,166 56,122 66,76 96,50 140,42 184,50 214,76 224,122 210,166 182,191"
-                  fill="#9b8c7a" stroke="#7a6e60" stroke-width="2"/>
-                <polygon
-                  points="140,190 102,186 76,164 64,124 72,82 98,58 140,50 182,58 208,82 216,124 204,164 178,186"
-                  fill="#c8b8a4" opacity="0.24"/>
+                <polygon points="140,196 98,191 70,166 56,122 66,76 96,50 140,42 184,50 214,76 224,122 210,166 182,191" fill="#9b8c7a" stroke="#7a6e60" stroke-width="2"/>
+                <polygon points="140,190 102,186 76,164 64,124 72,82 98,58 140,50 182,58 208,82 216,124 204,164 178,186" fill="#c8b8a4" opacity="0.24"/>
                 <ellipse cx="98"  cy="146" rx="6"   ry="4"   fill="#7a6e60" opacity="0.26"/>
                 <ellipse cx="178" cy="150" rx="5"   ry="3.5" fill="#7a6e60" opacity="0.22"/>
                 <ellipse cx="138" cy="114" rx="4"   ry="3"   fill="#7a6e60" opacity="0.18"/>
-                <!-- Text lines — y set by JS to center them in the rock -->
                 <text id="yr-l1" x="140" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="14" font-weight="700" fill="#3a3028" y="108"></text>
                 <text id="yr-l2" x="140" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="14" font-weight="700" fill="#3a3028" y="126"></text>
                 <text id="yr-l3" x="140" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="14" font-weight="700" fill="#3a3028" y="144"></text>
@@ -556,39 +384,28 @@ svg{
             </div>
           </div>
 
-          <!-- Question section (shown after rock appears) -->
+          <!-- Question section -->
           <div class="q-section" id="q-section">
-
-            <!-- Instruction ABOVE the tip -->
             <p class="q-instruction" id="q-prompt">Now, turn it into a question — reframing 1 of 3:</p>
-
-            <!-- Tip bar -->
             <div class="hint-bar" role="note">
-              <strong>Tip:</strong> Start your question with <strong>"How to,"</strong> <strong>"How might,"</strong>
-              or <strong>"What might be all the"</strong> to unlock creative thinking.
+              <strong>Tip:</strong> Start your question with <strong>"How to,"</strong> <strong>"How might,"</strong> or <strong>"What might be all the"</strong> to unlock creative thinking.
             </div>
-
-            <!-- Input -->
             <div id="q-input-area" style="width:100%;max-width:560px;">
               <div class="q-input-row">
-                <input class="styled-input" id="q-input" type="text"
-                  placeholder='e.g. "How might I manage my workload better?"'
-                  maxlength="200" style="flex:1;min-width:180px;" aria-describedby="q-hint"/>
+                <input class="styled-input" id="q-input" type="text" placeholder='e.g. "How might I manage my workload better?"' maxlength="200" style="flex:1;min-width:180px;" aria-describedby="q-hint"/>
                 <button class="action-btn ab-navy" id="add-q-btn">Add question</button>
               </div>
               <p id="q-hint" class="hint-sm" style="margin-top:4px;">Try 3 different ways of asking about the same problem.</p>
             </div>
 
-            <!-- Shapes row — questions appear here as colorful shapes -->
+            <!-- User's question shapes appear here -->
             <div class="your-shapes-row" id="your-shapes-row" role="list" aria-live="polite" aria-label="Your reframed questions"></div>
 
-            <!-- Success -->
             <div class="success-box" id="success-box" role="alert">
               <h3>Wow, you have reframed a problem three different ways!</h3>
               <p>Each question opens a different door. You are already thinking like a creative problem solver.</p>
             </div>
 
-            <!-- Save PDF + next (shown after success) -->
             <div id="after-success" style="display:none;flex-direction:column;align-items:center;gap:14px;width:100%;max-width:560px;">
               <button class="action-btn ab-blue" id="save-pdf-btn">Save my work as a PDF</button>
               <button class="next-btn nb-purple" data-next="6">
@@ -596,9 +413,8 @@ svg{
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
             </div>
-
-          </div><!-- /q-section -->
-        </div><!-- /your-area -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -619,9 +435,9 @@ svg{
 </div><!-- /stage -->
 
 <script>
-/* ═══════════════════════════
+/* ═══════════════════════════════════════════════════
    PANEL SYSTEM
-═══════════════════════════ */
+═══════════════════════════════════════════════════ */
 var current = 1;
 
 function transitionIn(el) {
@@ -667,9 +483,9 @@ document.addEventListener('click', function(e){
   }
 });
 
-/* ═══════════════════════════
+/* ═══════════════════════════════════════════════════
    PANEL 2: rocks → shapes
-═══════════════════════════ */
+═══════════════════════════════════════════════════ */
 function animatePanel2() {
   var tA = document.getElementById('tA');
   var tB = document.getElementById('tB');
@@ -680,9 +496,71 @@ function animatePanel2() {
   tB.style.opacity = '1';
 }
 
-/* ═══════════════════════════
-   PANEL 3: problem rocks
-═══════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   SHAPE SVG HELPER
+═══════════════════════════════════════════════════ */
+function makeShapeSVG(type, color, size) {
+  var ns = 'http://www.w3.org/2000/svg';
+  var svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', size);
+  svg.setAttribute('height', size);
+  svg.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
+  svg.setAttribute('aria-hidden', 'true');
+  var h = size / 2;
+
+  var shine = function(fx, fy, fr) {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', fx); c.setAttribute('cy', fy); c.setAttribute('r', fr);
+    c.setAttribute('fill', 'white'); c.setAttribute('opacity', '0.28');
+    svg.appendChild(c);
+  };
+
+  if (type === 'circle') {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', h); c.setAttribute('cy', h); c.setAttribute('r', h - 3);
+    c.setAttribute('fill', color); svg.appendChild(c);
+    shine(h * .66, h * .64, h * .20);
+  } else if (type === 'triangle') {
+    var t = document.createElementNS(ns, 'polygon');
+    t.setAttribute('points', h + ',4 ' + (size - 4) + ',' + (size - 5) + ' 4,' + (size - 5));
+    t.setAttribute('fill', color); svg.appendChild(t);
+    shine(h, h * .78, h * .17);
+  } else {
+    var r = document.createElementNS(ns, 'rect');
+    r.setAttribute('x', '5'); r.setAttribute('y', '5');
+    r.setAttribute('width', size - 10); r.setAttribute('height', size - 10);
+    r.setAttribute('rx', '9'); r.setAttribute('fill', color); svg.appendChild(r);
+    shine(h * .66, h * .66, h * .17);
+  }
+  return svg;
+}
+
+/* ═══════════════════════════════════════════════════
+   REVEAL HELPER — completely rewritten
+   
+   Strategy: inject the element with visibility:hidden so it takes
+   up space but is invisible. Then use a 50ms setTimeout (NOT rAF)
+   to guarantee the browser has fully laid out and painted the element
+   before we switch to the animated visible state. This avoids all
+   rAF batching issues.
+═══════════════════════════════════════════════════ */
+function revealElement(el, delay) {
+  // Start state: invisible but present in the layout
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px) scale(0.82)';
+  el.style.transition = 'none';
+
+  setTimeout(function() {
+    // Set transition FIRST, then change the values
+    el.style.transition = 'opacity 0.5s cubic-bezier(0.22, 0.68, 0, 1.2), transform 0.5s cubic-bezier(0.22, 0.68, 0, 1.2)';
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0) scale(1)';
+  }, delay);
+}
+
+/* ═══════════════════════════════════════════════════
+   PANEL 3: PROBLEM ROCKS — click to reframe
+═══════════════════════════════════════════════════ */
 var REFRAMES = [
   [ // money
     { shape:'circle',   color:'#ac1ca1', text:'How might we make more money?' },
@@ -701,31 +579,41 @@ var REFRAMES = [
   ]
 ];
 
-[0,1,2].forEach(function(idx){
-  var g = document.getElementById('rock-' + idx);
+document.addEventListener('click', function(e) {
+  var g = e.target.closest('.rock-g');
   if (!g) return;
-  g.addEventListener('click', function(){ handleRockClick(idx); });
-  g.addEventListener('keydown', function(e){
-    if (e.key==='Enter'||e.key===' '){ e.preventDefault(); handleRockClick(idx); }
-  });
+  var idx = parseInt(g.id.replace('rock-', ''));
+  if (!isNaN(idx)) handleRockClick(idx);
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  var g = document.activeElement && document.activeElement.closest ? document.activeElement.closest('.rock-g') : null;
+  if (!g) return;
+  var idx = parseInt(g.id.replace('rock-', ''));
+  if (!isNaN(idx)) { e.preventDefault(); handleRockClick(idx); }
 });
 
 function handleRockClick(idx) {
   var g = document.getElementById('rock-' + idx);
-  if (!g || g.dataset.busy==='1') return;
+  if (!g || g.dataset.busy === '1') return;
   g.dataset.busy = '1';
 
+  // Hide the hint text
   var cta = document.getElementById('click-cta');
-  if (cta) { cta.style.opacity='0'; cta.style.animation='none'; }
+  if (cta) { cta.style.opacity = '0'; cta.style.animation = 'none'; }
 
-  // Clear old reframes + notice
+  // Clear old reframe items immediately
   var rrow = document.getElementById('reframe-row');
   rrow.innerHTML = '';
+
+  // Hide notice and next button
   var nb = document.getElementById('notice-box');
   var tp = document.getElementById('to-panel-5');
   if (nb) nb.classList.remove('show');
   if (tp) tp.style.display = 'none';
 
+  // Animate the rock
   shakeAndExplode(g, idx);
   announce('Reframing. Three questions will appear below.');
 }
@@ -733,24 +621,25 @@ function handleRockClick(idx) {
 function shakeAndExplode(g, idx) {
   addShakeStyle();
   g.style.animation = 'rockShake .38s ease';
-  setTimeout(function(){
+  setTimeout(function() {
     g.style.animation = '';
     burstParticles(idx);
     g.style.transition = 'opacity .35s ease,transform .35s ease';
     g.style.opacity = '0';
     g.style.transform = 'scale(0.05)';
-    setTimeout(function(){
-      g.style.transition=''; g.style.opacity=''; g.style.transform='';
+    setTimeout(function() {
+      g.style.transition = ''; g.style.opacity = ''; g.style.transform = '';
       delete g.dataset.busy;
     }, 1400);
-    setTimeout(function(){ showReframes(REFRAMES[idx]); }, 180);
+    // Show shapes 180ms after the rock starts disappearing
+    setTimeout(function() { showReframes(REFRAMES[idx]); }, 180);
   }, 400);
 }
 
 function addShakeStyle() {
   if (document.getElementById('shake-kf')) return;
-  var s = document.createElement('style'); s.id='shake-kf';
-  s.textContent='@keyframes rockShake{0%{transform:translate(0,0) rotate(0)}15%{transform:translate(-5px,-2px) rotate(-2.5deg)}35%{transform:translate(6px,1px) rotate(2deg)}55%{transform:translate(-4px,0)}75%{transform:translate(3px,0)}100%{transform:translate(0,0)}}';
+  var s = document.createElement('style'); s.id = 'shake-kf';
+  s.textContent = '@keyframes rockShake{0%{transform:translate(0,0) rotate(0)}15%{transform:translate(-5px,-2px) rotate(-2.5deg)}35%{transform:translate(6px,1px) rotate(2deg)}55%{transform:translate(-4px,0)}75%{transform:translate(3px,0)}100%{transform:translate(0,0)}}';
   document.head.appendChild(s);
 }
 
@@ -758,264 +647,295 @@ function burstParticles(idx) {
   var svg = document.getElementById('problem-svg');
   var g   = document.getElementById('rock-' + idx);
   if (!svg || !g) return;
-  var ns='http://www.w3.org/2000/svg';
-  var sr=svg.getBoundingClientRect(), gr=g.getBoundingClientRect();
-  var sx=800/sr.width, sy=200/sr.height;
-  var cx=(gr.left-sr.left+gr.width/2)*sx;
-  var cy=(gr.top-sr.top+gr.height*.45)*sy;
-  var cols=['#ac1ca1','#1479d1','#89d808','#ffa32a','#0d2b6e','#fff'];
-  var parts=[];
-  for(var i=0;i<32;i++){
-    var a=(Math.PI*2/32)*i+(Math.random()-.5)*.6, spd=4+Math.random()*10;
-    var c=document.createElementNS(ns,'circle');
-    c.setAttribute('r',3+Math.random()*5.5);
-    c.setAttribute('fill',cols[Math.floor(Math.random()*cols.length)]);
+  var ns = 'http://www.w3.org/2000/svg';
+  var sr = svg.getBoundingClientRect(), gr = g.getBoundingClientRect();
+  var sx = 800 / sr.width, sy = 200 / sr.height;
+  var cx = (gr.left - sr.left + gr.width / 2) * sx;
+  var cy = (gr.top  - sr.top  + gr.height * .45) * sy;
+  var cols = ['#ac1ca1','#1479d1','#89d808','#ffa32a','#0d2b6e','#fff'];
+  var parts = [];
+  for (var i = 0; i < 32; i++) {
+    var a = (Math.PI * 2 / 32) * i + (Math.random() - .5) * .6;
+    var spd = 4 + Math.random() * 10;
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('r', 3 + Math.random() * 5.5);
+    c.setAttribute('fill', cols[Math.floor(Math.random() * cols.length)]);
     svg.appendChild(c);
-    parts.push({el:c,x:cx,y:cy,vx:Math.cos(a)*spd,vy:Math.sin(a)*spd-3,alpha:1});
+    parts.push({el:c, x:cx, y:cy, vx:Math.cos(a)*spd, vy:Math.sin(a)*spd-3, alpha:1});
   }
-  var fr=0;
-  (function step(){
-    parts.forEach(function(p){
-      if(p.alpha<=0)return;
-      p.x+=p.vx; p.y+=p.vy; p.vy+=.55; p.vx*=.97; p.alpha-=.028;
-      p.el.setAttribute('cx',p.x); p.el.setAttribute('cy',p.y);
-      p.el.setAttribute('opacity',Math.max(0,p.alpha).toFixed(3));
+  var fr = 0;
+  (function step() {
+    parts.forEach(function(p) {
+      if (p.alpha <= 0) return;
+      p.x += p.vx; p.y += p.vy; p.vy += .55; p.vx *= .97; p.alpha -= .028;
+      p.el.setAttribute('cx', p.x); p.el.setAttribute('cy', p.y);
+      p.el.setAttribute('opacity', Math.max(0, p.alpha).toFixed(3));
     });
     fr++;
-    if(fr<60&&parts.some(function(p){return p.alpha>0;})) requestAnimationFrame(step);
-    else parts.forEach(function(p){ try{svg.removeChild(p.el);}catch(e){} });
+    if (fr < 60 && parts.some(function(p){ return p.alpha > 0; })) requestAnimationFrame(step);
+    else parts.forEach(function(p){ try { svg.removeChild(p.el); } catch(e){} });
   })();
 }
 
+/*
+  showReframes — completely rewritten approach:
+  Build all three items, append them to the row (they start invisible
+  via inline opacity:0), then use staggered setTimeouts to trigger
+  the reveal transition on each one. No CSS classes involved at all.
+*/
 function showReframes(data) {
   var rrow = document.getElementById('reframe-row');
-  data.forEach(function(rf, i){
+
+  data.forEach(function(rf, i) {
+    // Build the item element
     var item = document.createElement('div');
     item.className = 'reframe-item';
-    item.appendChild(makeShape(rf.shape, rf.color, 80));
+
+    var svgEl = makeShapeSVG(rf.shape, rf.color, 80);
+    item.appendChild(svgEl);
+
     var lbl = document.createElement('div');
     lbl.className = 'reframe-label';
     lbl.textContent = rf.text;
     item.appendChild(lbl);
+
+    // Set invisible start state BEFORE appending to DOM
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(24px) scale(0.82)';
+    item.style.transition = 'none';
+
     rrow.appendChild(item);
-    setTimeout(function(){ item.classList.add('show'); }, 120 + i*220);
+
+    // Use a 50ms base + stagger delay. The 50ms ensures the browser
+    // has flushed the style and painted the element as invisible.
+    // Then we set the transition and animate to visible.
+    var staggerDelay = 50 + (i * 220);
+    setTimeout(function() {
+      item.style.transition = 'opacity 0.5s cubic-bezier(0.22, 0.68, 0, 1.2), transform 0.5s cubic-bezier(0.22, 0.68, 0, 1.2)';
+      item.style.opacity = '1';
+      item.style.transform = 'translateY(0) scale(1)';
+    }, staggerDelay);
   });
-  // Show notice + next button after all shapes land
-  var delay = 120 + data.length*220 + 200;
-  setTimeout(function(){
+
+  // Show notice + next button after all shapes have animated in
+  var totalDelay = 50 + (data.length * 220) + 500;
+  setTimeout(function() {
     var nb = document.getElementById('notice-box');
     var tp = document.getElementById('to-panel-5');
     if (nb) nb.classList.add('show');
     if (tp) tp.style.display = 'inline-flex';
-  }, delay);
+    announce('Three reframings shown. Notice box appeared.');
+  }, totalDelay);
 }
 
-function makeShape(type, color, size){
-  var div = document.createElement('div');
-
-  div.className = 'shape ' + type;
-
-  if(size === 72){
-    div.classList.add('small-shape');
-  }
-
-  if(type === 'triangle'){
-    div.style.borderBottomColor = color;
-  } else {
-    div.style.background = color;
-  }
-
-  return div;
-}
-
-/* ═══════════════════════════
+/* ═══════════════════════════════════════════════════
    PANEL 5: YOUR PROBLEM
-═══════════════════════════ */
-document.getElementById('make-rock-btn').addEventListener('click', function(){
-  var inp=document.getElementById('prob-input');
-  var val=inp.value.trim();
-  if(!val){ inp.setAttribute('aria-invalid','true'); inp.focus(); return; }
+═══════════════════════════════════════════════════ */
+document.getElementById('make-rock-btn').addEventListener('click', function() {
+  var inp = document.getElementById('prob-input');
+  var val = inp.value.trim();
+  if (!val) { inp.setAttribute('aria-invalid', 'true'); inp.focus(); return; }
   inp.removeAttribute('aria-invalid');
   buildYourRock(val);
 });
 
-document.getElementById('prob-input').addEventListener('keydown', function(e){
-  if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); document.getElementById('make-rock-btn').click(); }
+document.getElementById('prob-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('make-rock-btn').click(); }
 });
 
 function buildYourRock(text) {
-  // Word-wrap into up to 3 lines of ~22 chars
-  var words=text.split(' '), lines=['','',''], li=0;
-  for(var i=0;i<words.length;i++){
-    var w=words[i], cand=lines[li]?(lines[li]+' '+w):w;
-    if(li<2&&cand.length>22){ li++; cand=w; }
-    lines[li]=cand;
+  // Wrap text into up to 3 lines of ~22 chars
+  var words = text.split(' '), lines = ['', '', ''], li = 0;
+  for (var i = 0; i < words.length; i++) {
+    var w = words[i], cand = lines[li] ? (lines[li] + ' ' + w) : w;
+    if (li < 2 && cand.length > 22) { li++; cand = w; }
+    lines[li] = cand;
   }
 
-  // Center the text block vertically inside the rock
-  // Rock center is approximately y=120 (midpoint of 42-196 = 119)
-  var filled=lines.filter(function(l){return l.length>0;});
-  var lineH=20;
-  // startY: center the block around y=118
-  var startY=118 - Math.floor((filled.length-1)*lineH/2);
+  var filled = lines.filter(function(l){ return l.length > 0; });
+  var lineH = 20;
+  var startY = 118 - Math.floor((filled.length - 1) * lineH / 2);
 
-  ['yr-l1','yr-l2','yr-l3'].forEach(function(id,i){
-    var el=document.getElementById(id);
-    el.textContent=lines[i]||'';
-    el.setAttribute('y', startY+i*lineH);
+  ['yr-l1','yr-l2','yr-l3'].forEach(function(id, i) {
+    var el = document.getElementById(id);
+    el.textContent = lines[i] || '';
+    el.setAttribute('y', startY + i * lineH);
   });
 
-  // Reveal rock zone
-  var zone=document.getElementById('your-rock-zone');
-  zone.style.display='flex';
+  // Reveal the rock: set invisible, then animate in after a short delay
+  var wrap = document.getElementById('your-rock-wrap');
+  wrap.style.transition = 'none';
+  wrap.style.opacity = '0';
+  wrap.style.transform = 'scale(0.75)';
 
-  // Trigger transition (needs 2 rAF to escape current paint)
-  var wrap=document.getElementById('your-rock-wrap');
-  wrap.classList.remove('show');
-  // Force a reflow so the transition fires fresh each time
-  void wrap.getBoundingClientRect();
-  requestAnimationFrame(function(){ requestAnimationFrame(function(){ wrap.classList.add('show'); }); });
+  setTimeout(function() {
+    wrap.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 0.68, 0, 1.2)';
+    wrap.style.opacity = '1';
+    wrap.style.transform = 'scale(1)';
+  }, 80);
 
   // Show question section
-  var qs=document.getElementById('q-section');
- qs.classList.add('visible');
-qs.offsetHeight;
+  var qs = document.getElementById('q-section');
+  qs.classList.add('visible');
   resetQuestions();
 
   setTimeout(function(){ document.getElementById('q-input').focus(); }, 700);
   announce('Your problem has become a rock. Now reframe it as a question.');
 }
 
-/* Questions */
-var qCount=0, MAX_Q=3;
-var Q_COLORS=['#ac1ca1','#1479d1','#89d808'];
-var Q_SHAPES=['circle','triangle','square'];
-var myProblem='', myQuestions=[];
+/* ═══════════════════════════════════════════════════
+   PANEL 5: QUESTIONS
+═══════════════════════════════════════════════════ */
+var qCount = 0, MAX_Q = 3;
+var Q_COLORS = ['#ac1ca1', '#1479d1', '#89d808'];
+var Q_SHAPES = ['circle', 'triangle', 'square'];
+var myProblem = '', myQuestions = [];
 
-function resetQuestions(){
-  qCount=0; myQuestions=[];
-  document.getElementById('your-shapes-row').innerHTML='';
-  document.getElementById('q-input').value='';
+function resetQuestions() {
+  qCount = 0; myQuestions = [];
+  document.getElementById('your-shapes-row').innerHTML = '';
+  document.getElementById('q-input').value = '';
   document.getElementById('success-box').classList.remove('show');
-  document.getElementById('q-input-area').style.display='block';
-  var af=document.getElementById('after-success');
-  if(af) af.style.display='none';
+  document.getElementById('q-input-area').style.display = 'block';
+  var af = document.getElementById('after-success');
+  if (af) af.style.display = 'none';
   updateQPrompt();
 }
 
-function updateQPrompt(){
-  document.getElementById('q-prompt').textContent=
-    'Now, turn it into a question — reframing '+(qCount+1)+' of 3:';
+function updateQPrompt() {
+  document.getElementById('q-prompt').textContent =
+    'Now, turn it into a question — reframing ' + (qCount + 1) + ' of 3:';
 }
 
 document.getElementById('add-q-btn').addEventListener('click', addQuestion);
-document.getElementById('q-input').addEventListener('keydown', function(e){
-  if(e.key==='Enter'){ e.preventDefault(); addQuestion(); }
+document.getElementById('q-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') { e.preventDefault(); addQuestion(); }
 });
 
-function addQuestion(){
-  if(qCount>=MAX_Q) return;
-  var inp=document.getElementById('q-input');
-  var val=inp.value.trim();
-  if(!val){ inp.setAttribute('aria-invalid','true'); inp.focus(); return; }
+/*
+  addQuestion — rewritten shape reveal:
+  Same pattern as showReframes. Append with opacity:0, then use a
+  50ms setTimeout before triggering the transition to opacity:1.
+*/
+function addQuestion() {
+  if (qCount >= MAX_Q) return;
+  var inp = document.getElementById('q-input');
+  var val = inp.value.trim();
+  if (!val) { inp.setAttribute('aria-invalid', 'true'); inp.focus(); return; }
   inp.removeAttribute('aria-invalid');
 
   myQuestions.push(val);
 
-  var item=document.createElement('div');
-  item.className='your-shape-item';
-  item.setAttribute('role','listitem');
-  item.appendChild(makeShape(Q_SHAPES[qCount%3], Q_COLORS[qCount%3], 72));
-  var txt=document.createElement('div');
-  txt.className='your-shape-text';
-  txt.textContent=val;
+  // Build shape item
+  var item = document.createElement('div');
+  item.className = 'your-shape-item';
+  item.setAttribute('role', 'listitem');
+
+  var svgEl = makeShapeSVG(Q_SHAPES[qCount % 3], Q_COLORS[qCount % 3], 72);
+  item.appendChild(svgEl);
+
+  var txt = document.createElement('div');
+  txt.className = 'your-shape-text';
+  txt.textContent = val;
   item.appendChild(txt);
+
+  // Set invisible start state before appending
+  item.style.opacity = '0';
+  item.style.transform = 'translateY(20px) scale(0.82)';
+  item.style.transition = 'none';
+
   document.getElementById('your-shapes-row').appendChild(item);
-  requestAnimationFrame(function(){ requestAnimationFrame(function(){ item.classList.add('show'); }); });
+
+  // 50ms delay ensures the invisible element has been painted before
+  // we start the transition to visible
+  setTimeout(function() {
+    item.style.transition = 'opacity 0.5s cubic-bezier(0.22, 0.68, 0, 1.2), transform 0.5s cubic-bezier(0.22, 0.68, 0, 1.2)';
+    item.style.opacity = '1';
+    item.style.transform = 'translateY(0) scale(1)';
+  }, 50);
 
   qCount++;
-  inp.value='';
+  inp.value = '';
 
-  if(qCount>=MAX_Q){
-    document.getElementById('q-input-area').style.display='none';
-    var box=document.getElementById('success-box');
+  if (qCount >= MAX_Q) {
+    document.getElementById('q-input-area').style.display = 'none';
+    var box = document.getElementById('success-box');
     box.classList.add('show');
-    myProblem=document.getElementById('prob-input').value.trim();
-    var af=document.getElementById('after-success');
-    af.style.display='flex';
-    setTimeout(function(){ box.scrollIntoView({behavior:'smooth',block:'nearest'}); },100);
+    myProblem = document.getElementById('prob-input').value.trim();
+    var af = document.getElementById('after-success');
+    af.style.display = 'flex';
+    setTimeout(function(){ box.scrollIntoView({behavior:'smooth', block:'nearest'}); }, 100);
     announce('Wonderful! You have reframed your problem three different ways. You are thinking like a creative problem solver!');
   } else {
     updateQPrompt();
-    announce('Question '+qCount+' added. '+(MAX_Q-qCount)+' more to go.');
+    announce('Question ' + qCount + ' added. ' + (MAX_Q - qCount) + ' more to go.');
     inp.focus();
   }
 }
 
-/* ═══════════════════════════
+/* ═══════════════════════════════════════════════════
    SAVE AS PDF
-═══════════════════════════ */
-document.getElementById('save-pdf-btn').addEventListener('click', function(){
+═══════════════════════════════════════════════════ */
+document.getElementById('save-pdf-btn').addEventListener('click', function() {
   buildPrintPage();
-  document.querySelector('.stage').style.display='none';
-  var pp=document.getElementById('print-page');
-  pp.style.display='block';
-  setTimeout(function(){
+  document.querySelector('.stage').style.display = 'none';
+  var pp = document.getElementById('print-page');
+  pp.style.display = 'block';
+  setTimeout(function() {
     window.print();
-    setTimeout(function(){
-      pp.style.display='none';
-      document.querySelector('.stage').style.display='';
+    setTimeout(function() {
+      pp.style.display = 'none';
+      document.querySelector('.stage').style.display = '';
     }, 800);
   }, 120);
 });
 
-function buildPrintPage(){
-  document.getElementById('pdf-problem').textContent=myProblem;
-  var ns='http://www.w3.org/2000/svg';
-  var container=document.getElementById('pdf-questions');
-  container.innerHTML='';
-  var shapeColors=['#ac1ca1','#1479d1','#89d808'];
-  var shapeTypes=['circle','triangle','square'];
-  myQuestions.forEach(function(q,i){
-    var row=document.createElement('div');
-    row.style.cssText='display:flex;align-items:flex-start;gap:16px;margin-bottom:22px;page-break-inside:avoid;';
-    var svg=document.createElementNS(ns,'svg');
-    svg.setAttribute('width','44'); svg.setAttribute('height','44');
-    svg.setAttribute('viewBox','0 0 44 44');
-    svg.style.flexShrink='0';
-    var h=22, col=shapeColors[i], type=shapeTypes[i];
-    if(type==='circle'){
-      var c=document.createElementNS(ns,'circle');
-      c.setAttribute('cx',h); c.setAttribute('cy',h); c.setAttribute('r',h-2);
-      c.setAttribute('fill',col); svg.appendChild(c);
-    } else if(type==='triangle'){
-      var t=document.createElementNS(ns,'polygon');
-      t.setAttribute('points',h+',3 41,41 3,41');
-      t.setAttribute('fill',col); svg.appendChild(t);
+function buildPrintPage() {
+  document.getElementById('pdf-problem').textContent = myProblem;
+  var ns = 'http://www.w3.org/2000/svg';
+  var container = document.getElementById('pdf-questions');
+  container.innerHTML = '';
+  var shapeColors = ['#ac1ca1','#1479d1','#89d808'];
+  var shapeTypes  = ['circle','triangle','square'];
+  myQuestions.forEach(function(q, i) {
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:flex-start;gap:16px;margin-bottom:22px;page-break-inside:avoid;';
+    var svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('width', '44'); svg.setAttribute('height', '44');
+    svg.setAttribute('viewBox', '0 0 44 44');
+    svg.style.flexShrink = '0';
+    var h = 22, col = shapeColors[i], type = shapeTypes[i];
+    if (type === 'circle') {
+      var c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', h); c.setAttribute('cy', h); c.setAttribute('r', h - 2);
+      c.setAttribute('fill', col); svg.appendChild(c);
+    } else if (type === 'triangle') {
+      var t = document.createElementNS(ns, 'polygon');
+      t.setAttribute('points', h + ',3 41,41 3,41');
+      t.setAttribute('fill', col); svg.appendChild(t);
     } else {
-      var r=document.createElementNS(ns,'rect');
-      r.setAttribute('x','3'); r.setAttribute('y','3');
-      r.setAttribute('width','38'); r.setAttribute('height','38');
-      r.setAttribute('rx','7'); r.setAttribute('fill',col); svg.appendChild(r);
+      var r = document.createElementNS(ns, 'rect');
+      r.setAttribute('x', '3'); r.setAttribute('y', '3');
+      r.setAttribute('width', '38'); r.setAttribute('height', '38');
+      r.setAttribute('rx', '7'); r.setAttribute('fill', col); svg.appendChild(r);
     }
     row.appendChild(svg);
-    var textDiv=document.createElement('div');
-    textDiv.style.cssText='font-size:1.05rem;font-weight:500;line-height:1.6;padding-top:10px;color:#0c1a4a;';
-    textDiv.textContent=q;
+    var textDiv = document.createElement('div');
+    textDiv.style.cssText = 'font-size:1.05rem;font-weight:500;line-height:1.6;padding-top:10px;color:#0c1a4a;';
+    textDiv.textContent = q;
     row.appendChild(textDiv);
     container.appendChild(row);
   });
 }
 
-/* ═══════════════════════════
+/* ═══════════════════════════════════════════════════
    ARIA
-═══════════════════════════ */
-function announce(msg){
-  var el=document.getElementById('announcer');
-  el.textContent='';
-  requestAnimationFrame(function(){ el.textContent=msg; });
+═══════════════════════════════════════════════════ */
+function announce(msg) {
+  var el = document.getElementById('announcer');
+  el.textContent = '';
+  requestAnimationFrame(function(){ el.textContent = msg; });
 }
 </script>
 </body>
 </html>
-
