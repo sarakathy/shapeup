@@ -16,556 +16,169 @@
     --text: #0c1a4a;
     --purple-dark: #8a1582;
     --navy-light: #1a3f9e;
-    --blue-light: #1a8af0;
-    --orange-dark: #e08a18;
     --green-dark: #6aaa00;
-    --rock-gray: #8a8070;
-    --rock-tan: #b8a88a;
-    --rock-brown: #7a6050;
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--light);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Skip nav for a11y */
-  .skip-link {
-    position: absolute;
-    top: -100px;
-    left: 0;
-    background: var(--navy);
-    color: white;
-    padding: 8px 16px;
-    z-index: 9999;
-    font-weight: 700;
-    border-radius: 0 0 8px 0;
-    transition: top 0.2s;
-  }
+  body { font-family: 'Nunito', sans-serif; background: var(--light); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+  .skip-link { position: absolute; top: -100px; left: 0; background: var(--navy); color: white; padding: 8px 16px; z-index: 9999; font-weight: 700; border-radius: 0 0 8px 0; transition: top 0.2s; }
   .skip-link:focus { top: 0; }
-
-  /* ============ LAYOUT ============ */
-  .game-wrapper {
-    max-width: 950px;
-    margin: 0 auto;
-    padding: 0 16px 60px;
-    position: relative;
-  }
-
-  /* ============ HEADER ============ */
-  header {
-    text-align: center;
-    padding: 40px 20px 20px;
-    position: relative;
-  }
-  .game-title {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(2.4rem, 6vw, 4rem);
-    font-weight: 900;
-    color: var(--purple);
-    letter-spacing: -1px;
-    line-height: 1;
-  }
-  .game-subtitle {
-    font-size: 1.1rem;
-    color: var(--navy);
-    margin-top: 8px;
-    font-weight: 600;
-  }
-
-  /* ============ PROGRESS BAR ============ */
-  .progress-bar-wrap {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin: 24px 0 0;
-    padding: 0 10px;
-  }
-  .progress-dot {
-    width: 36px;
-    height: 8px;
-    border-radius: 99px;
-    background: #c5c8dc;
-    transition: background 0.4s, transform 0.3s;
-    position: relative;
-  }
-  .progress-dot.active {
-    background: var(--purple);
-    transform: scaleY(1.5);
-  }
-  .progress-dot.done {
-    background: var(--green-dark);
-  }
-
-  /* ============ PANELS ============ */
-  .panel {
-    display: none;
-    animation: panelIn 0.5s ease both;
-  }
+  .game-wrapper { max-width: 950px; margin: 0 auto; padding: 0 16px 60px; }
+  header { text-align: center; padding: 40px 20px 20px; }
+  .game-title { font-family: 'Fraunces', serif; font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 900; color: var(--purple); letter-spacing: -1px; line-height: 1; }
+  .game-subtitle { font-size: 1.1rem; color: var(--navy); margin-top: 8px; font-weight: 600; }
+  .progress-bar-wrap { display: flex; gap: 8px; justify-content: center; margin: 24px 0 0; }
+  .progress-dot { width: 36px; height: 8px; border-radius: 99px; background: #c5c8dc; transition: background 0.4s, transform 0.3s; }
+  .progress-dot.active { background: var(--purple); transform: scaleY(1.5); }
+  .progress-dot.done { background: var(--green-dark); }
+  .panel { display: none; animation: panelIn 0.5s ease both; }
   .panel.active { display: block; }
-  @keyframes panelIn {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ============ CARDS ============ */
-  .card {
-    background: white;
-    border-radius: 24px;
-    padding: 32px 36px;
-    margin: 24px 0;
-    box-shadow: 0 4px 24px rgba(13,43,110,0.10);
-    position: relative;
-    overflow: hidden;
-  }
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--purple), var(--blue), var(--green));
-  }
-
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(1.4rem, 3.5vw, 2rem);
-    color: var(--navy);
-    font-weight: 700;
-    margin-bottom: 16px;
-    line-height: 1.2;
-  }
-  p {
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: var(--text);
-    margin-bottom: 12px;
-  }
+  @keyframes panelIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .card { background: white; border-radius: 24px; padding: 32px 36px; margin: 24px 0; box-shadow: 0 4px 24px rgba(13,43,110,0.10); position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--purple), var(--blue), var(--green)); }
+  h2 { font-family: 'Fraunces', serif; font-size: clamp(1.4rem, 3.5vw, 2rem); color: var(--navy); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+  p { font-size: 1.05rem; line-height: 1.75; color: var(--text); margin-bottom: 12px; }
   p:last-child { margin-bottom: 0; }
-
   strong { color: var(--purple); }
-
-  /* ============ BUTTONS ============ */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--purple);
-    color: white;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: 800;
-    padding: 12px 28px;
-    border: none;
-    border-radius: 99px;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 4px 12px rgba(172,28,161,0.3);
-    text-decoration: none;
-    letter-spacing: 0.02em;
-  }
+  .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--purple); color: white; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; padding: 12px 28px; border: none; border-radius: 99px; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(172,28,161,0.3); letter-spacing: 0.02em; }
   .btn:hover { background: var(--purple-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(172,28,161,0.4); }
   .btn:active { transform: translateY(0); }
-  .btn:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
   .btn-navy { background: var(--navy); box-shadow: 0 4px 12px rgba(13,43,110,0.3); }
-  .btn-navy:hover { background: var(--navy-light); box-shadow: 0 6px 20px rgba(13,43,110,0.4); }
+  .btn-navy:hover { background: var(--navy-light); }
   .btn-green { background: var(--green-dark); box-shadow: 0 4px 12px rgba(106,170,0,0.35); }
   .btn-green:hover { background: #5a9200; }
   .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; align-items: center; }
+  .scene-wrap { width: 100%; display: flex; justify-content: center; margin: 20px 0; }
+  .scene-wrap svg { width: 100%; max-width: 720px; height: auto; overflow: visible; }
 
-  /* ============ SVG SCENE ============ */
-  .scene-wrap {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-  }
-  .scene-wrap svg {
-    width: 100%;
-    max-width: 720px;
-    height: auto;
-    overflow: visible;
-  }
-
-  /* ============ PANEL 1 ROCKS ============ */
-  .p1-rocks { display: block; }
-
-  /* ============ PANEL 2 SHAPES ============ */
-  .shape-morph-scene { min-height: 180px; position: relative; }
-  .morph-item {
-    transition: all 0.6s cubic-bezier(0.34,1.56,0.64,1);
-  }
-
-  /* ============ PANEL 3 - PROBLEM ROCKS ============ */
-  .problem-section { margin: 20px 0; }
-  .problems-row {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 20px 0;
-  }
-  .problem-rock-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    position: relative;
-    transition: transform 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  /* PANEL 3 */
+  .problems-row { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin: 20px 0; }
+  .problem-rock-slot { position: relative; width: 150px; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+  .problem-rock-btn { background: none; border: none; cursor: pointer; padding: 0; position: absolute; top: 0; left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s; transform-origin: center bottom; }
   .problem-rock-btn:hover { transform: translateY(-4px); }
   .problem-rock-btn:focus-visible { outline: 3px solid var(--orange); outline-offset: 6px; border-radius: 12px; }
-  .problem-rock-btn.selected svg path.rock-fill { filter: drop-shadow(0 0 12px var(--orange)); }
-  .problem-rock-btn .rock-label {
-    font-size: 0.78rem;
-    font-weight: 800;
-    color: var(--text);
-    text-align: center;
-    margin-top: 8px;
-    max-width: 130px;
-    line-height: 1.3;
-  }
-  .problem-rock-btn.selected .rock-label { color: var(--purple); }
+  .rock-fragment { position: absolute; pointer-events: none; opacity: 1; }
+  .exploded-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 800; color: var(--text); text-align: center; line-height: 1.35; max-width: 130px; width: 130px; opacity: 0; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.3s, opacity 0.3s ease 0.3s; pointer-events: none; }
+  .exploded-label.visible { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-  /* Reframe shapes row */
-  .reframe-shapes-row {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 24px 0 20px;
-    min-height: 140px;
-  }
-  .reframe-shape {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0;
-    transform: scale(0.5) translateY(20px);
-    transition: opacity 0.4s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-    cursor: default;
-  }
-  .reframe-shape.visible {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-  .reframe-shape svg { overflow: visible; }
-  .reframe-shape .shape-q {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--text);
-    text-align: center;
-    max-width: 130px;
-    margin-top: 8px;
-    line-height: 1.35;
-  }
+  .reframe-shapes-row { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin: 24px 0 20px; min-height: 140px; }
+  .reframe-shape { display: flex; flex-direction: column; align-items: center; opacity: 0; transform: scale(0.5) translateY(20px); transition: opacity 0.4s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+  .reframe-shape.visible { opacity: 1; transform: scale(1) translateY(0); }
+  .reframe-shape .shape-q { font-size: 0.78rem; font-weight: 700; color: var(--text); text-align: center; max-width: 130px; margin-top: 8px; line-height: 1.35; }
 
-  .insight-box {
-    background: linear-gradient(135deg, #f0edfc 0%, #e8f4fd 100%);
-    border-left: 5px solid var(--blue);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin: 20px 0 0;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.5s, transform 0.5s;
-  }
+  .insight-box { background: linear-gradient(135deg, #f0edfc 0%, #e8f4fd 100%); border-left: 5px solid var(--blue); border-radius: 12px; padding: 20px 24px; margin: 20px 0 0; opacity: 0; transform: translateY(12px); transition: opacity 0.5s, transform 0.5s; }
   .insight-box.visible { opacity: 1; transform: translateY(0); }
   .insight-box p { font-size: 0.98rem; color: var(--text); margin: 0; }
 
-  /* ============ PANEL 4 ============ */
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 16px 0;
-  }
-  label.field-label {
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: var(--navy);
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-  }
-  textarea, input[type="text"] {
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    color: var(--text);
-    background: var(--light);
-    border: 2.5px solid #c5c8dc;
-    border-radius: 14px;
-    padding: 14px 18px;
-    resize: vertical;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    line-height: 1.5;
-    width: 100%;
-  }
+  /* PANEL 4 */
+  .input-group { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  label.field-label { font-size: 0.95rem; font-weight: 800; color: var(--navy); letter-spacing: 0.03em; text-transform: uppercase; }
+  textarea, input[type="text"] { font-family: 'Nunito', sans-serif; font-size: 1rem; color: var(--text); background: var(--light); border: 2.5px solid #c5c8dc; border-radius: 14px; padding: 14px 18px; resize: vertical; transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.5; width: 100%; }
   textarea { min-height: 80px; }
-  textarea:focus, input[type="text"]:focus {
-    outline: none;
-    border-color: var(--purple);
-    box-shadow: 0 0 0 3px rgba(172,28,161,0.15);
-  }
-
-  /* User's problem rock display */
-  .user-problem-wrap {
-    display: flex;
-    justify-content: center;
-    margin: 24px 0 8px;
-    animation: panelIn 0.5s ease both;
-  }
-  .user-problem-wrap svg text { font-family: 'Nunito', sans-serif; }
-
-  /* Questions gallery */
-  .questions-gallery {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 20px 0;
-    min-height: 40px;
-  }
-  .q-bubble {
-    padding: 14px 20px;
-    border-radius: 99px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: white;
-    max-width: 260px;
-    text-align: center;
-    animation: bubbleIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
-    line-height: 1.4;
-  }
-  .q-bubble:nth-child(1) { background: var(--purple); }
-  .q-bubble:nth-child(2) { background: var(--blue); }
-  .q-bubble:nth-child(3) { background: var(--green-dark); }
-  @keyframes bubbleIn {
-    from { opacity: 0; transform: scale(0.5); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  .congrats-box {
-    background: linear-gradient(135deg, var(--navy), var(--purple));
-    color: white;
-    border-radius: 18px;
-    padding: 24px 28px;
-    text-align: center;
-    margin: 20px 0;
-    animation: panelIn 0.5s ease both;
-  }
+  textarea:focus, input[type="text"]:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(172,28,161,0.15); }
+  .user-problem-wrap { display: flex; justify-content: center; margin: 24px 0 8px; animation: panelIn 0.5s ease both; }
+  .rock-text-foreign { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; color: #3a3020; line-height: 1.35; }
+  .questions-gallery { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin: 20px 0; min-height: 40px; align-items: flex-end; }
+  .q-shape-wrap { display: flex; flex-direction: column; align-items: center; animation: bubbleIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+  @keyframes bubbleIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+  .q-shape-label { font-size: 0.82rem; font-weight: 700; color: var(--text); text-align: center; max-width: 160px; margin-top: 8px; line-height: 1.35; }
+  .congrats-box { background: linear-gradient(135deg, var(--navy), var(--purple)); color: white; border-radius: 18px; padding: 24px 28px; text-align: center; margin: 20px 0; animation: panelIn 0.5s ease both; }
   .congrats-box h3 { font-family: 'Fraunces', serif; font-size: 1.6rem; margin-bottom: 8px; color: white; }
   .congrats-box p { color: rgba(255,255,255,0.9); margin: 0; }
-
-  /* Panel 4 step indicator */
-  .step-hint {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--blue);
-    margin: 4px 0 14px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .step-pip {
-    display: inline-flex;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 900;
-    flex-shrink: 0;
-  }
+  .steps-row { display: flex; gap: 10px; margin: 16px 0 24px; flex-wrap: wrap; }
+  .step-badge { display: flex; align-items: center; gap: 7px; padding: 7px 14px; border-radius: 99px; font-size: 0.85rem; font-weight: 700; transition: background 0.3s, color 0.3s; }
+  .step-badge.todo { background: #e8e9f3; color: #7a7e9a; }
+  .step-badge.active-step { background: var(--purple); color: white; }
+  .step-badge.done-step { background: var(--green-dark); color: white; }
+  .step-pip { display: inline-flex; width: 20px; height: 20px; border-radius: 50%; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; flex-shrink: 0; }
   .step-pip.done-pip { background: var(--green-dark); color: white; }
   .step-pip.active-pip { background: var(--purple); color: white; }
   .step-pip.todo-pip { background: #c5c8dc; color: var(--text); }
 
-  .steps-row { display: flex; gap: 10px; margin: 16px 0 24px; flex-wrap: wrap; }
-  .step-badge {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 14px;
-    border-radius: 99px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    transition: background 0.3s, color 0.3s;
-  }
-  .step-badge.todo { background: #e8e9f3; color: #7a7e9a; }
-  .step-badge.active-step { background: var(--purple); color: white; }
-  .step-badge.done-step { background: var(--green-dark); color: white; }
-
-  /* ============ PANEL 5 ============ */
-  .closing-hero {
-    background: linear-gradient(135deg, var(--navy) 0%, #1a3f9e 100%);
-    border-radius: 24px;
-    padding: 40px 36px;
-    color: white;
-    text-align: center;
-    margin: 24px 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .closing-hero::after {
-    content: '';
-    position: absolute;
-    bottom: -60px; right: -60px;
-    width: 200px; height: 200px;
-    background: rgba(172,28,161,0.3);
-    border-radius: 50%;
-  }
+  /* PANEL 5 */
+  .closing-hero { background: linear-gradient(135deg, var(--navy) 0%, #1a3f9e 100%); border-radius: 24px; padding: 40px 36px; color: white; text-align: center; margin: 24px 0; position: relative; overflow: hidden; }
+  .closing-hero::after { content: ''; position: absolute; bottom: -60px; right: -60px; width: 200px; height: 200px; background: rgba(172,28,161,0.3); border-radius: 50%; }
   .closing-hero h2 { color: white; font-size: clamp(1.5rem, 4vw, 2.2rem); margin-bottom: 16px; }
   .closing-hero p { color: rgba(255,255,255,0.9); font-size: 1.05rem; max-width: 600px; margin: 0 auto 14px; }
-  .closing-hero .highlight-phrase {
-    display: inline-block;
-    background: var(--orange);
-    color: var(--text);
-    border-radius: 8px;
-    padding: 4px 12px;
-    font-weight: 900;
-    font-style: italic;
-    font-size: 1.1rem;
-    margin: 4px 0;
-  }
-
-  .shapes-confetti {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-  }
+  .closing-hero .highlight-phrase { display: inline-block; background: var(--orange); color: var(--text); border-radius: 8px; padding: 4px 12px; font-weight: 900; font-style: italic; font-size: 1.1rem; margin: 4px 0; }
+  .shapes-confetti { display: flex; justify-content: center; gap: 16px; margin: 20px 0; flex-wrap: wrap; }
   .confetti-shape { animation: float 3s ease-in-out infinite; }
   .confetti-shape:nth-child(2) { animation-delay: 0.5s; }
   .confetti-shape:nth-child(3) { animation-delay: 1s; }
   .confetti-shape:nth-child(4) { animation-delay: 1.5s; }
-  @keyframes float {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(5deg); }
-  }
-
-  .save-section {
-    background: white;
-    border-radius: 20px;
-    padding: 28px 32px;
-    box-shadow: 0 4px 24px rgba(13,43,110,0.10);
-    margin: 0 0 24px;
-    text-align: center;
-  }
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(5deg); } }
+  .save-section { background: white; border-radius: 20px; padding: 28px 32px; box-shadow: 0 4px 24px rgba(13,43,110,0.10); margin: 0 0 24px; text-align: center; }
   .save-section h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 10px; }
   .save-section p { font-size: 0.95rem; color: var(--text); margin-bottom: 20px; }
-
-  /* ============ HIDDEN CANVAS FOR PNG EXPORT ============ */
   #export-canvas { display: none; }
-
-  /* ============ ROCK ART ============ */
-  .rock-text-foreign { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; color: #3a3020; line-height: 1.35; }
-
-  /* ============ RESPONSIVE ============ */
-  @media (max-width: 600px) {
-    .card { padding: 22px 20px; }
-    .problems-row { gap: 14px; }
-    .reframe-shapes-row { gap: 14px; }
-    .closing-hero { padding: 28px 20px; }
-  }
-
-  /* ============ FOCUS STYLES ============ */
+  @media (max-width: 600px) { .card { padding: 22px 20px; } .problems-row { gap: 14px; } .closing-hero { padding: 28px 20px; } }
   :focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
-  button:focus-visible, a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 8px; }
-
-  /* ============ PILL BADGE ============ */
-  .panel-label {
-    display: inline-block;
-    background: var(--orange);
-    color: var(--text);
-    font-size: 0.78rem;
-    font-weight: 900;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 4px 14px;
-    border-radius: 99px;
-    margin-bottom: 14px;
-  }
+  .panel-label { display: inline-block; background: var(--orange); color: var(--text); font-size: 0.78rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 14px; border-radius: 99px; margin-bottom: 14px; }
 </style>
 </head>
 <body>
-
 <a href="#main-content" class="skip-link">Skip to main content</a>
-
 <div class="game-wrapper">
   <header>
-    <div class="game-title" aria-label="Shape Up">Shape Up</div>
+    <div class="game-title">Shape Up</div>
     <p class="game-subtitle">A reframing adventure</p>
     <div class="progress-bar-wrap" role="progressbar" aria-label="Game progress" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="progress-bar">
-      <div class="progress-dot active" id="dot-1" aria-hidden="true"></div>
-      <div class="progress-dot" id="dot-2" aria-hidden="true"></div>
-      <div class="progress-dot" id="dot-3" aria-hidden="true"></div>
-      <div class="progress-dot" id="dot-4" aria-hidden="true"></div>
-      <div class="progress-dot" id="dot-5" aria-hidden="true"></div>
+      <div class="progress-dot active" id="dot-1"></div>
+      <div class="progress-dot" id="dot-2"></div>
+      <div class="progress-dot" id="dot-3"></div>
+      <div class="progress-dot" id="dot-4"></div>
+      <div class="progress-dot" id="dot-5"></div>
     </div>
   </header>
 
   <main id="main-content">
 
-    <!-- ==================== PANEL 1 ==================== -->
+    <!-- PANEL 1 -->
     <section class="panel active" id="panel-1" aria-labelledby="p1-title">
       <div class="card">
         <span class="panel-label">Part 1 of 5</span>
         <h2 id="p1-title">We all have problems.</h2>
         <p>Things that frustrate us, bother us, or get in our way.</p>
-
-        <!-- Klassen-style rocks SVG -->
-        <div class="scene-wrap" role="img" aria-label="Three jagged, uncomfortable-looking rocks in earthy gray, brown, and tan tones">
-          <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Rock 1: gray, left -->
-            <path d="M90,180 L55,155 L42,130 L58,105 L75,88 L100,78 L120,82 L140,95 L148,118 L138,148 L118,168 L98,180 Z"
-              fill="#8a8476" stroke="#6a6460" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M80,145 L70,130 L78,118 L92,115" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M115,100 L108,115 L120,125" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <!-- Shadow -->
-            <ellipse cx="100" cy="185" rx="48" ry="8" fill="rgba(0,0,0,0.12)"/>
-
-            <!-- Rock 2: tan, center -->
-            <path d="M300,185 L265,162 L248,138 L255,110 L272,88 L298,74 L328,72 L352,85 L368,112 L360,148 L340,172 L318,184 Z"
-              fill="#b8a882" stroke="#9a8a60" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M270,148 L260,132 L270,118 L285,122" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M330,92 L322,108 L338,118 L342,108" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M295,160 L285,148 L295,140" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <ellipse cx="308" cy="190" rx="55" ry="9" fill="rgba(0,0,0,0.12)"/>
-
-            <!-- Rock 3: brown, right -->
-            <path d="M570,178 L538,158 L522,135 L530,108 L548,90 L570,80 L594,82 L614,98 L622,124 L612,155 L592,172 L574,180 Z"
-              fill="#7a6655" stroke="#5e4e40" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M542,145 L535,130 L544,116 L558,120" stroke="#5e4e40" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M590,95 L582,112 L594,122" stroke="#5e4e40" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <ellipse cx="575" cy="184" rx="46" ry="8" fill="rgba(0,0,0,0.12)"/>
-
-            <!-- Small pebbles scattered -->
-            <ellipse cx="190" cy="178" rx="14" ry="9" fill="#a09080" stroke="#857060" stroke-width="1.5"/>
-            <ellipse cx="220" cy="184" rx="9" ry="6" fill="#c0b098" stroke="#a09070" stroke-width="1.2"/>
-            <ellipse cx="440" cy="182" rx="16" ry="10" fill="#88786a" stroke="#685848" stroke-width="1.5"/>
-            <ellipse cx="470" cy="188" rx="8" ry="5" fill="#a89888" stroke="#887868" stroke-width="1.2"/>
+        <div class="scene-wrap" role="img" aria-label="Three chunky rocks sitting on their flat bases">
+          <svg viewBox="0 0 700 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Ground line -->
+            <line x1="20" y1="192" x2="680" y2="192" stroke="#c5b8a0" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Pebbles -->
+            <ellipse cx="185" cy="187" rx="18" ry="10" fill="#a09080" stroke="#857060" stroke-width="1.5"/>
+            <ellipse cx="218" cy="190" rx="10" ry="6" fill="#c0b098" stroke="#a09070" stroke-width="1.2"/>
+            <ellipse cx="430" cy="188" rx="20" ry="11" fill="#88786a" stroke="#685848" stroke-width="1.5"/>
+            <ellipse cx="466" cy="191" rx="9" ry="6" fill="#a89888" stroke="#887868" stroke-width="1.2"/>
+            <!-- Rock 1 shadow (behind rock) -->
+            <ellipse cx="104" cy="184" rx="52" ry="8" fill="rgba(0,0,0,0.13)"/>
+            <!-- Rock 1 -->
+            <ellipse cx="104" cy="179" rx="54" ry="9" fill="#706a60" opacity="0.85"/>
+            <path d="M55,178 L48,158 L56,134 L72,112 L95,98 L120,96 L142,104 L156,122 L158,148 L150,168 L138,178 Z" fill="#8a8476" stroke="#6a6460" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M72,155 L65,138 L75,124 L90,128" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M128,108 L120,124 L134,132" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Rock 2 shadow -->
+            <ellipse cx="304" cy="186" rx="50" ry="8" fill="rgba(0,0,0,0.13)"/>
+            <!-- Rock 2 -->
+            <ellipse cx="304" cy="181" rx="52" ry="9" fill="#9a8a66" opacity="0.85"/>
+            <path d="M258,180 L248,158 L250,130 L262,105 L285,88 L312,82 L340,90 L358,112 L360,142 L350,168 L338,180 Z" fill="#b8a882" stroke="#9a8a60" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M268,158 L260,138 L272,122 L288,128" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M338,100 L328,118 L344,126 L348,114" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Rock 3 shadow -->
+            <ellipse cx="584" cy="184" rx="48" ry="8" fill="rgba(0,0,0,0.13)"/>
+            <!-- Rock 3 -->
+            <ellipse cx="584" cy="179" rx="50" ry="9" fill="#5e4e40" opacity="0.72"/>
+            <path d="M542,178 L534,158 L536,132 L550,108 L572,92 L596,88 L618,98 L630,122 L628,152 L616,172 L600,178 Z" fill="#7a6655" stroke="#5e4e40" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M550,155 L542,138 L554,122 L568,128" stroke="#5e4e40" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M608,102 L598,120 L612,130" stroke="#5e4e40" stroke-width="1.5" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
-
         <p>These problems can be <strong>prickly, uncomfortable, and even painful.</strong></p>
         <p>Dwelling on our problems can get us stuck — but with a tool called <strong>reframing</strong>, we can turn many of our problems into opportunities for positive change.</p>
-
         <div class="btn-row">
           <button class="btn" onclick="goToPanel(2)">What's reframing? →</button>
         </div>
       </div>
     </section>
 
-    <!-- ==================== PANEL 2 ==================== -->
+    <!-- PANEL 2 -->
     <section class="panel" id="panel-2" aria-labelledby="p2-title">
       <div class="card">
         <span class="panel-label">Part 2 of 5</span>
@@ -573,45 +186,76 @@
         <p>When we reframe, we <strong>change the shape of our problem</strong> into something we can use — a springboard, a ramp, or a step to something new.</p>
         <p>When we change the shape of a problem, we change how we <em>think</em> about it — and that opens the door to creative solutions.</p>
 
-        <!-- Animated morph: rocks → shapes -->
-        <div class="scene-wrap" role="img" aria-label="Three dull rocks transform into a colorful circle, triangle, and square, representing problems becoming opportunities">
-          <svg id="morph-svg" viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- ROCKS (fade out on load) -->
-            <g id="morph-rocks" style="transition: opacity 0.8s 0.3s; opacity:1">
-              <path d="M120,175 L95,155 L82,132 L90,108 L108,92 L128,86 L148,92 L162,112 L155,148 L138,168 Z"
-                fill="#8a8476" stroke="#6a6460" stroke-width="2" stroke-linejoin="round"/>
-              <ellipse cx="128" cy="180" rx="42" ry="7" fill="rgba(0,0,0,0.10)"/>
+        <!-- Morph scene: HTML div-based so CSS transitions work reliably -->
+        <div style="width:100%; display:flex; justify-content:center; margin:20px 0; min-height:230px; position:relative;">
+          <div id="morph-stage" style="position:relative; width:100%; max-width:680px; height:220px;">
 
-              <path d="M318,178 L288,160 L275,136 L285,108 L305,90 L330,82 L355,90 L368,116 L358,152 L335,172 Z"
-                fill="#b8a882" stroke="#9a8a60" stroke-width="2" stroke-linejoin="round"/>
-              <ellipse cx="322" cy="184" rx="48" ry="7" fill="rgba(0,0,0,0.10)"/>
+            <!-- Ground line -->
+            <div id="morph-ground" style="position:absolute; bottom:18px; left:0; right:0; height:2px; background:#c5b8a0; border-radius:1px;"></div>
 
-              <path d="M538,172 L512,155 L500,132 L510,106 L530,90 L554,84 L574,92 L584,118 L572,152 L554,168 Z"
-                fill="#7a6655" stroke="#5e4e40" stroke-width="2" stroke-linejoin="round"/>
-              <ellipse cx="542" cy="178" rx="42" ry="7" fill="rgba(0,0,0,0.10)"/>
-            </g>
+            <!-- ROCK 1 (left) -->
+            <div id="mr1" style="position:absolute; left:50px; bottom:16px; width:140px; height:110px; transition: transform 0.5s cubic-bezier(0.4,0,1,0.8), opacity 0.45s ease; transform-origin:center bottom;">
+              <svg width="140" height="110" viewBox="0 0 140 110">
+                <!-- shadow behind rock -->
+                <ellipse cx="70" cy="104" rx="62" ry="9" fill="rgba(0,0,0,0.13)"/>
+                <ellipse cx="70" cy="100" rx="64" ry="10" fill="#706a60" opacity="0.85"/>
+                <path d="M6,98 L2,76 L10,52 L28,32 L52,18 L74,14 L96,20 L112,38 L116,62 L108,84 L90,98 Z" fill="#8a8476" stroke="#6a6460" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M22,78 L16,60 L26,48 L40,52" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M90,26 L82,42 L96,50" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
 
-            <!-- SHAPES (fade in after delay) -->
-            <g id="morph-shapes" style="transition: opacity 0.8s 1.2s; opacity:0">
-              <!-- Circle (purple) -->
-              <circle cx="130" cy="128" r="60" fill="#ac1ca1" opacity="0.92"/>
-              <circle cx="130" cy="128" r="60" fill="none" stroke="white" stroke-width="3" stroke-dasharray="8 6" opacity="0.5"/>
-              <ellipse cx="130" cy="194" rx="50" ry="8" fill="rgba(172,28,161,0.25)"/>
+            <!-- ROCK 2 (center) -->
+            <div id="mr2" style="position:absolute; left:50%; transform:translateX(-50%); bottom:16px; width:152px; height:118px; transition: transform 0.5s cubic-bezier(0.4,0,1,0.8) 0.15s, opacity 0.45s ease 0.15s; transform-origin:center bottom;">
+              <svg width="152" height="118" viewBox="0 0 152 118">
+                <ellipse cx="76" cy="112" rx="68" ry="9" fill="rgba(0,0,0,0.13)"/>
+                <ellipse cx="76" cy="108" rx="70" ry="10" fill="#9a8a66" opacity="0.85"/>
+                <path d="M8,106 L2,82 L6,54 L22,30 L46,12 L76,6 L106,14 L124,36 L128,66 L118,92 L98,108 Z" fill="#b8a882" stroke="#9a8a60" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M20,88 L12,68 L24,52 L38,58" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M108,22 L98,40 L112,50 L116,38" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
 
-              <!-- Triangle (orange) -->
-              <polygon points="322,68 260,188 384,188" fill="#ffa32a" opacity="0.92"/>
-              <polygon points="322,68 260,188 384,188" fill="none" stroke="white" stroke-width="3" stroke-dasharray="8 6" opacity="0.5"/>
-              <ellipse cx="322" cy="195" rx="58" ry="8" fill="rgba(255,163,42,0.25)"/>
+            <!-- ROCK 3 (right) -->
+            <div id="mr3" style="position:absolute; right:50px; bottom:16px; width:138px; height:108px; transition: transform 0.5s cubic-bezier(0.4,0,1,0.8) 0.3s, opacity 0.45s ease 0.3s; transform-origin:center bottom;">
+              <svg width="138" height="108" viewBox="0 0 138 108">
+                <ellipse cx="69" cy="102" rx="60" ry="9" fill="rgba(0,0,0,0.13)"/>
+                <ellipse cx="69" cy="98" rx="62" ry="10" fill="#5e4e40" opacity="0.72"/>
+                <path d="M8,96 L2,74 L6,50 L22,28 L46,14 L70,10 L92,18 L108,38 L110,66 L100,88 L80,96 Z" fill="#7a6655" stroke="#5e4e40" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M20,78 L14,58 L24,44 L38,50" stroke="#5e4e40" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M88,24 L80,42 L94,52" stroke="#5e4e40" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
 
-              <!-- Square (green) -->
-              <rect x="480" y="68" width="120" height="120" rx="16" fill="#89d808" opacity="0.92"/>
-              <rect x="480" y="68" width="120" height="120" rx="16" fill="none" stroke="white" stroke-width="3" stroke-dasharray="8 6" opacity="0.5"/>
-              <ellipse cx="540" cy="194" rx="54" ry="8" fill="rgba(137,216,8,0.25)"/>
-            </g>
-          </svg>
+            <!-- SHAPE 1 (circle, purple) — starts hidden, grows in -->
+            <div id="ms1" style="position:absolute; left:50px; bottom:16px; width:140px; height:140px; opacity:0; transform:scale(0); transition: transform 0.55s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease; transform-origin:center bottom; pointer-events:none;">
+              <svg width="140" height="140" viewBox="0 0 140 140">
+                <ellipse cx="70" cy="136" rx="52" ry="8" fill="rgba(172,28,161,0.22)"/>
+                <circle cx="70" cy="68" r="62" fill="#ac1ca1" opacity="0.93"/>
+                <circle cx="70" cy="68" r="62" fill="none" stroke="white" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.5"/>
+              </svg>
+            </div>
+
+            <!-- SHAPE 2 (triangle, orange) — center -->
+            <div id="ms2" style="position:absolute; left:50%; transform:translateX(-50%) scale(0); bottom:16px; width:170px; height:154px; opacity:0; transition: transform 0.55s cubic-bezier(0.34,1.56,0.64,1) 0.18s, opacity 0.4s ease 0.18s; transform-origin:center bottom; pointer-events:none;">
+              <svg width="170" height="154" viewBox="0 0 170 154">
+                <ellipse cx="85" cy="150" rx="68" ry="8" fill="rgba(255,163,42,0.22)"/>
+                <polygon points="85,6 6,148 164,148" fill="#ffa32a" opacity="0.93"/>
+                <polygon points="85,6 6,148 164,148" fill="none" stroke="white" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.5"/>
+              </svg>
+            </div>
+
+            <!-- SHAPE 3 (square, green) — right -->
+            <div id="ms3" style="position:absolute; right:50px; bottom:16px; width:130px; height:130px; opacity:0; transform:scale(0); transition: transform 0.55s cubic-bezier(0.34,1.56,0.64,1) 0.34s, opacity 0.4s ease 0.34s; transform-origin:center bottom; pointer-events:none;">
+              <svg width="130" height="130" viewBox="0 0 130 130">
+                <ellipse cx="65" cy="126" rx="52" ry="7" fill="rgba(137,216,8,0.22)"/>
+                <rect x="6" y="6" width="118" height="118" rx="16" fill="#89d808" opacity="0.93"/>
+                <rect x="6" y="6" width="118" height="118" rx="16" fill="none" stroke="white" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.5"/>
+              </svg>
+            </div>
+
+          </div>
         </div>
-
-        <p style="font-style:italic; color: var(--purple); font-weight:700; text-align:center;">Watch the rocks become shapes — and feel the shift in possibility.</p>
 
         <div class="btn-row">
           <button class="btn btn-navy" onclick="goToPanel(1)">← Back</button>
@@ -620,73 +264,76 @@
       </div>
     </section>
 
-    <!-- ==================== PANEL 3 ==================== -->
+    <!-- PANEL 3 -->
     <section class="panel" id="panel-3" aria-labelledby="p3-title">
       <div class="card">
         <span class="panel-label">Part 3 of 5</span>
         <h2 id="p3-title">Do any of these feel familiar?</h2>
         <p>Click on a problem rock to see it reframed. Try all three!</p>
-
-        <div class="problems-row" role="group" aria-label="Problem rocks — click one to reframe it">
+        <div class="problems-row" role="group" aria-label="Problem rocks">
           <!-- Rock A -->
-          <button class="problem-rock-btn" id="rock-btn-a" onclick="selectProblem('a')" aria-pressed="false" aria-label="Problem: There isn't enough money">
-            <svg width="140" height="130" viewBox="0 0 140 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path class="rock-fill" d="M70,120 L38,100 L22,76 L28,50 L46,32 L70,24 L96,30 L112,52 L110,80 L92,106 Z"
-                fill="#8a8476" stroke="#6a6460" stroke-width="2.5" stroke-linejoin="round"/>
-              <path d="M42,90 L35,75 L44,60 L58,64" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              <path d="M90,38 L82,55 L96,65" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              <ellipse cx="70" cy="124" rx="44" ry="7" fill="rgba(0,0,0,0.12)"/>
-              <text x="70" y="63" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11.5" font-weight="800" fill="#2a2015" aria-hidden="true">
-                <tspan x="70" dy="0">There isn't</tspan>
-                <tspan x="70" dy="14">enough</tspan>
-                <tspan x="70" dy="14">money.</tspan>
-              </text>
-            </svg>
-          </button>
-
+          <div class="problem-rock-slot" id="slot-a">
+            <button class="problem-rock-btn" id="rock-btn-a" onclick="selectProblem('a')" aria-pressed="false" aria-label="Problem: There isn't enough money">
+              <svg width="150" height="155" viewBox="0 0 150 155" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <!-- shadow behind rock -->
+                <ellipse cx="75" cy="148" rx="58" ry="9" fill="rgba(0,0,0,0.13)"/>
+                <ellipse cx="75" cy="142" rx="56" ry="10" fill="#706a60" opacity="0.85"/>
+                <path d="M26,136 L18,112 L22,84 L40,60 L64,42 L88,38 L112,50 L126,74 L122,104 L106,128 L76,138 L38,136 Z" fill="#8a8476" stroke="#6a6460" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M38,114 L30,94 L44,78 L58,84" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M104,58 L94,76 L108,84" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <text x="75" y="80" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12" font-weight="800" fill="#2a2015">
+                  <tspan x="75" dy="0">There isn't</tspan>
+                  <tspan x="75" dy="15">enough</tspan>
+                  <tspan x="75" dy="15">money.</tspan>
+                </text>
+              </svg>
+            </button>
+            <div class="exploded-label" id="label-a">There isn't enough money.</div>
+          </div>
           <!-- Rock B -->
-          <button class="problem-rock-btn" id="rock-btn-b" onclick="selectProblem('b')" aria-pressed="false" aria-label="Problem: There isn't enough time">
-            <svg width="140" height="130" viewBox="0 0 140 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path class="rock-fill" d="M70,122 L36,105 L18,80 L25,50 L45,30 L72,22 L98,30 L116,55 L112,84 L94,108 Z"
-                fill="#b8a882" stroke="#9a8a60" stroke-width="2.5" stroke-linejoin="round"/>
-              <path d="M38,94 L30,78 L40,63 L54,68" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              <path d="M95,38 L88,56 L100,65 L104,54" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              <ellipse cx="70" cy="126" rx="46" ry="7" fill="rgba(0,0,0,0.12)"/>
-              <text x="70" y="62" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11.5" font-weight="800" fill="#3a3010" aria-hidden="true">
-                <tspan x="70" dy="0">There isn't</tspan>
-                <tspan x="70" dy="14">enough</tspan>
-                <tspan x="70" dy="14">time.</tspan>
-              </text>
-            </svg>
-          </button>
-
+          <div class="problem-rock-slot" id="slot-b">
+            <button class="problem-rock-btn" id="rock-btn-b" onclick="selectProblem('b')" aria-pressed="false" aria-label="Problem: There isn't enough time">
+              <svg width="150" height="155" viewBox="0 0 150 155" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <ellipse cx="75" cy="148" rx="60" ry="9" fill="rgba(0,0,0,0.13)"/>
+                <ellipse cx="75" cy="142" rx="58" ry="10" fill="#9a8a66" opacity="0.85"/>
+                <path d="M24,136 L16,110 L20,80 L38,54 L64,36 L90,34 L116,46 L130,72 L126,104 L110,130 L76,138 L36,136 Z" fill="#b8a882" stroke="#9a8a60" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M36,114 L28,92 L42,74 L58,80" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M108,52 L98,72 L114,80 L118,68" stroke="#9a8a60" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <text x="75" y="78" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12" font-weight="800" fill="#3a3010">
+                  <tspan x="75" dy="0">There isn't</tspan>
+                  <tspan x="75" dy="15">enough</tspan>
+                  <tspan x="75" dy="15">time.</tspan>
+                </text>
+              </svg>
+            </button>
+            <div class="exploded-label" id="label-b">There isn't enough time.</div>
+          </div>
           <!-- Rock C -->
-          <button class="problem-rock-btn" id="rock-btn-c" onclick="selectProblem('c')" aria-pressed="false" aria-label="Problem: I don't know how to do it">
-            <svg width="140" height="130" viewBox="0 0 140 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path class="rock-fill" d="M70,120 L40,104 L24,80 L30,52 L50,34 L74,26 L98,34 L114,56 L108,86 L88,108 Z"
-                fill="#7a6655" stroke="#5e4e40" stroke-width="2.5" stroke-linejoin="round"/>
-              <path d="M44,94 L36,78 L46,64 L60,68" stroke="#5e4e40" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              <path d="M92,42 L84,58 L98,66" stroke="#5e4e40" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              <ellipse cx="70" cy="124" rx="44" ry="7" fill="rgba(0,0,0,0.12)"/>
-              <text x="70" y="56" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11.5" font-weight="800" fill="#1a0e08" aria-hidden="true">
-                <tspan x="70" dy="0">I don't know</tspan>
-                <tspan x="70" dy="14">how to</tspan>
-                <tspan x="70" dy="14">do it.</tspan>
-              </text>
-            </svg>
-          </button>
+          <div class="problem-rock-slot" id="slot-c">
+            <button class="problem-rock-btn" id="rock-btn-c" onclick="selectProblem('c')" aria-pressed="false" aria-label="Problem: I don't know how to do it">
+              <svg width="150" height="155" viewBox="0 0 150 155" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <ellipse cx="75" cy="148" rx="58" ry="9" fill="rgba(0,0,0,0.13)"/>
+                <ellipse cx="75" cy="142" rx="56" ry="10" fill="#5e4e40" opacity="0.72"/>
+                <path d="M28,136 L20,110 L24,82 L42,56 L66,40 L92,36 L116,48 L128,74 L122,106 L106,130 L74,138 L38,136 Z" fill="#7a6655" stroke="#5e4e40" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M40,114 L32,92 L46,74 L62,80" stroke="#5e4e40" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M106,56 L96,76 L112,84" stroke="#5e4e40" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <text x="75" y="73" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12" font-weight="800" fill="#1a0e08">
+                  <tspan x="75" dy="0">I don't know</tspan>
+                  <tspan x="75" dy="15">how to</tspan>
+                  <tspan x="75" dy="15">do it.</tspan>
+                </text>
+              </svg>
+            </button>
+            <div class="exploded-label" id="label-c">I don't know how to do it.</div>
+          </div>
         </div>
 
-        <!-- Reframe shapes area -->
         <div id="reframe-area" aria-live="polite" aria-atomic="true">
-          <div class="reframe-shapes-row" id="reframe-shapes-row" aria-label="Reframed questions">
-            <!-- populated by JS -->
-          </div>
+          <div class="reframe-shapes-row" id="reframe-shapes-row"></div>
           <div class="insight-box" id="insight-box" role="note">
             <p>Notice how wording the problems as <strong>questions</strong> changes how we think about them. Instead of a complaint, we now have an open-ended challenge to solve. And notice how different questions invite different kinds of solutions. There are many ways to reframe the same problem — and each one changes your perspective.</p>
           </div>
         </div>
-
         <div class="btn-row">
           <button class="btn btn-navy" onclick="goToPanel(2)">← Back</button>
           <button class="btn" id="p3-next-btn" onclick="goToPanel(4)" style="display:none">Now try it yourself →</button>
@@ -694,79 +341,57 @@
       </div>
     </section>
 
-    <!-- ==================== PANEL 4 ==================== -->
+    <!-- PANEL 4 -->
     <section class="panel" id="panel-4" aria-labelledby="p4-title">
       <div class="card">
         <span class="panel-label">Part 4 of 5</span>
         <h2 id="p4-title">Let's try it!</h2>
         <p>Write down a problem that's been troubling you.</p>
-
-        <!-- Step tracker -->
-        <div class="steps-row" aria-label="Progress steps" role="list">
-          <div class="step-badge active-step" id="step1-badge" role="listitem">
-            <span class="step-pip active-pip" aria-hidden="true">1</span> Your problem
-          </div>
-          <div class="step-badge todo" id="step2-badge" role="listitem">
-            <span class="step-pip todo-pip" aria-hidden="true">2</span> Question 1
-          </div>
-          <div class="step-badge todo" id="step3-badge" role="listitem">
-            <span class="step-pip todo-pip" aria-hidden="true">3</span> Question 2
-          </div>
-          <div class="step-badge todo" id="step4-badge" role="listitem">
-            <span class="step-pip todo-pip" aria-hidden="true">4</span> Question 3
-          </div>
+        <div class="steps-row" role="list">
+          <div class="step-badge active-step" id="step1-badge" role="listitem"><span class="step-pip active-pip">1</span> Your problem</div>
+          <div class="step-badge todo" id="step2-badge" role="listitem"><span class="step-pip todo-pip">2</span> Question 1</div>
+          <div class="step-badge todo" id="step3-badge" role="listitem"><span class="step-pip todo-pip">3</span> Question 2</div>
+          <div class="step-badge todo" id="step4-badge" role="listitem"><span class="step-pip todo-pip">4</span> Question 3</div>
         </div>
-
-        <!-- Step 1: Enter problem -->
         <div id="p4-step1">
           <div class="input-group">
             <label class="field-label" for="user-problem">My problem:</label>
-            <textarea id="user-problem" placeholder="e.g. I'm stuck in a job I don't like." rows="3" maxlength="200"
-              aria-describedby="problem-hint"></textarea>
-            <p id="problem-hint" style="font-size:0.85rem; color:#6a6e8a; margin:0">Keep it honest — no one else will see this.</p>
+            <textarea id="user-problem" placeholder="e.g. I'm stuck in a job I don't like." rows="3" maxlength="200"></textarea>
+            <p style="font-size:0.85rem; color:#6a6e8a; margin:0">Keep it honest — no one else will see this.</p>
           </div>
           <div class="btn-row">
-            <button class="btn" id="submit-problem-btn" onclick="submitProblem()">Shape this problem →</button>
+            <button class="btn" onclick="submitProblem()">Shape this problem →</button>
           </div>
         </div>
-
-        <!-- User's problem rock (shown after submit) -->
-        <div id="user-rock-wrap" class="user-problem-wrap" style="display:none" aria-live="polite">
-          <svg id="user-rock-svg" width="220" height="190" viewBox="0 0 220 190" xmlns="http://www.w3.org/2000/svg" aria-label="Your problem shown as a rock" role="img">
-            <path d="M110,178 L68,158 L45,128 L52,92 L76,68 L112,58 L150,68 L170,96 L164,138 L138,166 Z"
-              fill="#8a8476" stroke="#6a6460" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M65,145 L55,125 L68,108 L85,113" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M150,80 L140,100 L156,112" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <ellipse cx="110" cy="184" rx="60" ry="9" fill="rgba(0,0,0,0.12)"/>
-            <foreignObject id="user-rock-fo" x="55" y="80" width="110" height="90">
+        <div id="user-rock-wrap" class="user-problem-wrap" style="display:none">
+          <svg width="240" height="210" viewBox="0 0 240 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Your problem as a rock">
+            <!-- shadow behind rock -->
+            <ellipse cx="116" cy="200" rx="84" ry="10" fill="rgba(0,0,0,0.13)"/>
+            <ellipse cx="116" cy="192" rx="88" ry="12" fill="#706a60" opacity="0.85"/>
+            <path d="M30,178 L22,152 L28,118 L50,88 L82,64 L116,56 L150,64 L178,88 L186,122 L178,158 L162,178 L60,178 Z" fill="#8a8476" stroke="#6a6460" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M52,158 L42,136 L58,116 L76,122" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M162,80 L150,102 L168,114" stroke="#6a6460" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <foreignObject x="44" y="88" width="130" height="88">
               <div xmlns="http://www.w3.org/1999/xhtml" class="rock-text-foreign" id="user-rock-text" style="text-align:center; padding:4px;"></div>
             </foreignObject>
           </svg>
         </div>
-
-        <!-- Step 2/3/4: Questions -->
-        <div id="p4-questions-area" style="display:none" aria-live="polite">
-          <p id="question-prompt-text" style="font-weight:700; color:var(--navy); margin:16px 0 4px">
-            Now, turn it into a question. Try starting with <strong>"How to," "How might," or "What might be all the…"</strong>
-          </p>
-          <div id="questions-gallery" class="questions-gallery" aria-label="Your reframed questions"></div>
-
+        <div id="p4-questions-area" style="display:none">
+          <p id="question-prompt-text" style="font-weight:700; color:var(--navy); margin:16px 0 4px">Now, turn it into a question. Try starting with <strong>"How to," "How might," or "What might be all the…"</strong></p>
+          <div id="questions-gallery" class="questions-gallery"></div>
           <div id="next-question-form">
             <div class="input-group">
               <label class="field-label" for="user-question" id="question-label">Question 1:</label>
-              <input type="text" id="user-question" placeholder="How might I…" maxlength="200"
-                aria-describedby="q-hint"/>
-              <p id="q-hint" style="font-size:0.85rem; color:#6a6e8a; margin:0">Turn your complaint into a challenge to solve.</p>
+              <input type="text" id="user-question" placeholder="How might I…" maxlength="200"/>
+              <p style="font-size:0.85rem; color:#6a6e8a; margin:0">Turn your complaint into a challenge to solve.</p>
             </div>
             <div class="btn-row">
-              <button class="btn" id="submit-question-btn" onclick="submitQuestion()">Add this question →</button>
+              <button class="btn" onclick="submitQuestion()">Add this question →</button>
             </div>
           </div>
         </div>
-
-        <!-- Congrats (after 3 questions) -->
         <div id="p4-congrats" style="display:none">
-          <div class="congrats-box" role="status" aria-live="polite">
+          <div class="congrats-box" role="status">
             <h3>🎉 You did it!</h3>
             <p>You've reframed your problem <strong>three different ways</strong>. Each question is a door to a different set of solutions. That's the power of reframing!</p>
           </div>
@@ -774,46 +399,33 @@
             <button class="btn" onclick="goToPanel(5)">See what's next →</button>
           </div>
         </div>
-
         <div class="btn-row" id="p4-back-row">
           <button class="btn btn-navy" onclick="goToPanel(3)">← Back</button>
         </div>
       </div>
     </section>
 
-    <!-- ==================== PANEL 5 ==================== -->
+    <!-- PANEL 5 -->
     <section class="panel" id="panel-5" aria-labelledby="p5-title">
       <div class="closing-hero">
         <h2 id="p5-title">You're shaping up to be a creative problem solver!</h2>
         <p>When you start seeing problems as <strong style="color: var(--orange);">questions and challenges to be solved</strong>, your mind is primed for creative thinking.</p>
-        <div class="shapes-confetti" aria-hidden="true">
-          <svg class="confetti-shape" width="60" height="60" viewBox="0 0 60 60">
-            <circle cx="30" cy="30" r="28" fill="#ac1ca1" opacity="0.9"/>
-          </svg>
-          <svg class="confetti-shape" width="60" height="70" viewBox="0 0 60 70">
-            <polygon points="30,5 5,65 55,65" fill="#ffa32a" opacity="0.9"/>
-          </svg>
-          <svg class="confetti-shape" width="60" height="60" viewBox="0 0 60 60">
-            <rect x="6" y="6" width="48" height="48" rx="10" fill="#89d808" opacity="0.9"/>
-          </svg>
-          <svg class="confetti-shape" width="60" height="60" viewBox="0 0 60 60">
-            <circle cx="30" cy="30" r="28" fill="#1479d1" opacity="0.9"/>
-          </svg>
+        <div class="shapes-confetti">
+          <svg class="confetti-shape" width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ac1ca1" opacity="0.9"/></svg>
+          <svg class="confetti-shape" width="60" height="70" viewBox="0 0 60 70"><polygon points="30,5 5,65 55,65" fill="#ffa32a" opacity="0.9"/></svg>
+          <svg class="confetti-shape" width="60" height="60" viewBox="0 0 60 60"><rect x="6" y="6" width="48" height="48" rx="10" fill="#89d808" opacity="0.9"/></svg>
+          <svg class="confetti-shape" width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#1479d1" opacity="0.9"/></svg>
         </div>
         <p>The next time you feel frustrated, try phrasing it starting with the words:</p>
         <p class="highlight-phrase">"What might be all the…"</p>
         <p style="margin-top:12px;">…and notice what happens to your thoughts.</p>
       </div>
-
-      <div class="save-section" id="save-section">
+      <div class="save-section">
         <h3>Save your reframing work</h3>
         <p>Download your problem and questions as a PNG to keep or share.</p>
-        <button class="btn btn-green" id="save-png-btn" onclick="saveAsPNG()" aria-label="Save your reframing work as a PNG image">
-          ⬇ Save as PNG
-        </button>
-        <canvas id="export-canvas" aria-hidden="true"></canvas>
+        <button class="btn btn-green" onclick="saveAsPNG()">⬇ Save as PNG</button>
+        <canvas id="export-canvas"></canvas>
       </div>
-
       <div class="btn-row" style="justify-content:center">
         <button class="btn btn-navy" onclick="goToPanel(4)">← Back</button>
         <button class="btn" onclick="restartGame()">Start over ↺</button>
@@ -824,168 +436,193 @@
 </div>
 
 <script>
-// ============================================================
-// STATE
-// ============================================================
 let currentPanel = 1;
-let selectedProblem = null;
-let problemsClicked = new Set();
-let p4State = {
-  problem: '',
-  questions: [],
-  step: 0  // 0=enter problem, 1=q1, 2=q2, 3=q3, 4=done
-};
+let p4State = { problem: '', questions: [], step: 0 };
+let explodedRocks = new Set();
+let morphPlayed = false;
 
-// ============================================================
-// REFRAME DATA
-// ============================================================
 const reframeData = {
-  a: {
-    label: "There isn't enough money.",
-    shapes: [
-      { type: "circle",   color: "#ac1ca1", question: "How might we make more money?" },
-      { type: "triangle", color: "#ffa32a", question: "How to cut costs?" },
-      { type: "square",   color: "#6aaa00", question: "How to need less money?" }
-    ]
-  },
-  b: {
-    label: "There isn't enough time.",
-    shapes: [
-      { type: "circle",   color: "#1479d1", question: "How to prioritize my tasks?" },
-      { type: "triangle", color: "#ac1ca1", question: "How might I make more time for the things I care about?" },
-      { type: "square",   color: "#ffa32a", question: "How to feel like I have all the time I need?" }
-    ]
-  },
-  c: {
-    label: "I don't know how to do it.",
-    shapes: [
-      { type: "circle",   color: "#6aaa00", question: "What might be all the resources for learning this skill?" },
-      { type: "triangle", color: "#1479d1", question: "How might I draw from what I do know how to do?" },
-      { type: "square",   color: "#ac1ca1", question: "How to get help?" }
-    ]
-  }
+  a: { label:"There isn't enough money.", shapes:[
+    {type:"circle",   color:"#ac1ca1", question:"How might we make more money?"},
+    {type:"triangle", color:"#ffa32a", question:"How to cut costs?"},
+    {type:"square",   color:"#6aaa00", question:"How to need less money?"}
+  ]},
+  b: { label:"There isn't enough time.", shapes:[
+    {type:"circle",   color:"#1479d1", question:"How to prioritize my tasks?"},
+    {type:"triangle", color:"#ac1ca1", question:"How might I make more time for the things I care about?"},
+    {type:"square",   color:"#ffa32a", question:"How to feel like I have all the time I need?"}
+  ]},
+  c: { label:"I don't know how to do it.", shapes:[
+    {type:"circle",   color:"#6aaa00", question:"What might be all the resources for learning this skill?"},
+    {type:"triangle", color:"#1479d1", question:"How might I draw from what I do know how to do?"},
+    {type:"square",   color:"#ac1ca1", question:"How to get help?"}
+  ]}
 };
 
-// ============================================================
-// NAVIGATION
-// ============================================================
+// ── NAVIGATION ───────────────────────────────────────────────
 function goToPanel(n) {
-  const prev = document.getElementById('panel-' + currentPanel);
-  prev.classList.remove('active');
-
+  document.getElementById('panel-' + currentPanel).classList.remove('active');
   currentPanel = n;
   const next = document.getElementById('panel-' + n);
   next.classList.add('active');
   updateProgress(n);
-
-  // Focus the heading of new panel for a11y
-  const heading = next.querySelector('h2');
-  if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus(); }
-
-  // Panel-specific setup
-  if (n === 2) triggerMorph();
+  const h = next.querySelector('h2');
+  if (h) { h.setAttribute('tabindex','-1'); h.focus(); }
+  if (n === 2) scheduleMorph();
   if (n === 4) initPanel4();
-
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function updateProgress(n) {
   for (let i = 1; i <= 5; i++) {
-    const dot = document.getElementById('dot-' + i);
-    dot.classList.remove('active', 'done');
-    if (i < n) dot.classList.add('done');
-    else if (i === n) dot.classList.add('active');
+    const d = document.getElementById('dot-' + i);
+    d.classList.remove('active','done');
+    if (i < n) d.classList.add('done');
+    else if (i === n) d.classList.add('active');
   }
   document.getElementById('progress-bar').setAttribute('aria-valuenow', n);
 }
 
-// ============================================================
-// PANEL 2 – MORPH ANIMATION
-// ============================================================
-function triggerMorph() {
-  const rocks = document.getElementById('morph-rocks');
-  const shapes = document.getElementById('morph-shapes');
-  rocks.style.opacity = '0';
-  setTimeout(() => { shapes.style.opacity = '1'; }, 900);
+// ── PANEL 2: MORPH ───────────────────────────────────────────
+// We use HTML div transitions — rocks shrink down, then shapes pop up.
+// CSS transitions are already set on the divs; we just toggle classes/styles.
+function scheduleMorph() {
+  // Reset first (in case of revisit)
+  resetMorph();
+  // Small delay to let the panel finish animating in before morph starts
+  setTimeout(runMorph, 600);
 }
 
-// ============================================================
-// PANEL 3 – PROBLEM SELECTION
-// ============================================================
-function selectProblem(key) {
-  selectedProblem = key;
-  problemsClicked.add(key);
+function resetMorph() {
+  // Rocks: visible, not shrunk
+  ['mr1','mr2','mr3'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.transition = 'none';
+    el.style.opacity = '1';
+    el.style.transform = id === 'mr2' ? 'translateX(-50%) scale(1)' : 'scale(1)';
+  });
+  // Shapes: hidden, scale 0
+  const s2 = document.getElementById('ms2');
+  ['ms1','ms2','ms3'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.transition = 'none';
+    el.style.opacity = '0';
+    el.style.transform = id === 'ms2' ? 'translateX(-50%) scale(0)' : 'scale(0)';
+    el.style.pointerEvents = 'none';
+  });
+}
 
-  // Update aria-pressed on all
-  ['a', 'b', 'c'].forEach(k => {
-    const btn = document.getElementById('rock-btn-' + k);
-    btn.setAttribute('aria-pressed', k === key ? 'true' : 'false');
-    btn.classList.toggle('selected', k === key);
+function runMorph() {
+  // Phase 1: rocks shrink & fade (staggered)
+  const rockIds = ['mr1','mr2','mr3'];
+  rockIds.forEach((id, i) => {
+    const el = document.getElementById(id);
+    setTimeout(() => {
+      el.style.transition = `transform 0.45s cubic-bezier(0.4,0,1,0.8), opacity 0.4s ease`;
+      const isCenter = id === 'mr2';
+      el.style.transform = isCenter ? 'translateX(-50%) scale(0.08)' : 'scale(0.08)';
+      el.style.opacity = '0';
+    }, i * 140);
   });
 
-  // Render shapes
-  renderReframeShapes(key);
+  // Phase 2: shapes grow in (staggered, starting after rocks gone)
+  const shapeIds = ['ms1','ms2','ms3'];
+  shapeIds.forEach((id, i) => {
+    const el = document.getElementById(id);
+    const isCenter = id === 'ms2';
+    setTimeout(() => {
+      el.style.transition = `transform 0.55s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease`;
+      el.style.opacity = '1';
+      el.style.transform = isCenter ? 'translateX(-50%) scale(1)' : 'scale(1)';
+      el.style.pointerEvents = '';
+    }, 550 + i * 160);
+  });
+}
 
-  // Show next button once at least one problem has been clicked
+// ── PANEL 3: EXPLODE ROCK ────────────────────────────────────
+function selectProblem(key) {
+  ['a','b','c'].forEach(k => {
+    document.getElementById('rock-btn-' + k).setAttribute('aria-pressed', k === key ? 'true' : 'false');
+  });
+  if (!explodedRocks.has(key)) {
+    explodeRock(key);
+    explodedRocks.add(key);
+  }
+  renderReframeShapes(key);
   document.getElementById('p3-next-btn').style.display = 'inline-flex';
 }
 
+function explodeRock(key) {
+  const btn = document.getElementById('rock-btn-' + key);
+  const slot = document.getElementById('slot-' + key);
+  const label = document.getElementById('label-' + key);
+  const colors = {a:'#8a8476', b:'#b8a882', c:'#7a6655'};
+  const strokes = {a:'#6a6460', b:'#9a8a60', c:'#5e4e40'};
+  const rockColor = colors[key];
+  const rockStroke = strokes[key];
+  const directions = [
+    {tx:-55, ty:-60, rot:-35}, {tx:55,  ty:-65, rot:30},
+    {tx:-70, ty:-20, rot:-50}, {tx:70,  ty:-25, rot:45},
+    {tx:-45, ty:30,  rot:20},  {tx:50,  ty:35,  rot:-25},
+    {tx:5,   ty:-75, rot:60}
+  ];
+  const shards = [
+    '4,2 32,6 34,22 18,26 2,18','2,4 28,2 34,14 24,26 8,22',
+    '6,2 30,8 32,24 14,26 2,14','2,8 26,2 34,16 28,26 6,24',
+    '8,2 32,4 34,20 20,26 2,16','4,6 30,2 34,18 22,26 2,20',
+    '2,2 34,8 30,26 10,24 4,14'
+  ];
+  directions.forEach((dir, i) => {
+    const frag = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    frag.setAttribute('width', 36); frag.setAttribute('height', 28); frag.setAttribute('viewBox', '0 0 36 28');
+    const poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+    poly.setAttribute('points', shards[i]); poly.setAttribute('fill', rockColor);
+    poly.setAttribute('stroke', rockStroke); poly.setAttribute('stroke-width', '1.5'); poly.setAttribute('stroke-linejoin', 'round');
+    frag.appendChild(poly);
+    const wrapper = document.createElement('div');
+    wrapper.className = 'rock-fragment';
+    wrapper.style.cssText = `position:absolute; left:${75-18}px; top:${68-14}px; width:36px; height:28px; pointer-events:none; transform-origin:18px 14px;`;
+    wrapper.appendChild(frag);
+    slot.appendChild(wrapper);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      wrapper.style.transition = `transform 0.5s cubic-bezier(0.2,0,0.6,1) ${i*30}ms, opacity 0.45s ease ${i*30+80}ms`;
+      wrapper.style.transform = `translate(${dir.tx}px, ${dir.ty}px) rotate(${dir.rot}deg) scale(0.3)`;
+      wrapper.style.opacity = '0';
+    }));
+    setTimeout(() => wrapper.remove(), 700 + i * 30);
+  });
+  setTimeout(() => { btn.style.opacity = '0'; btn.style.pointerEvents = 'none'; }, 80);
+  setTimeout(() => { label.classList.add('visible'); }, 320);
+}
+
+// ── PANEL 3: REFRAME SHAPES ──────────────────────────────────
 function shapeSVG(type, color, size) {
   size = size || 90;
-  if (type === 'circle') {
-    return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">
-      <circle cx="${size/2}" cy="${size/2}" r="${size/2 - 4}" fill="${color}" opacity="0.93"/>
-      <circle cx="${size/2}" cy="${size/2}" r="${size/2 - 4}" fill="none" stroke="white" stroke-width="2.5" stroke-dasharray="7 5" opacity="0.5"/>
-      <ellipse cx="${size/2}" cy="${size - 2}" rx="${size/2 - 6}" ry="6" fill="${color}" opacity="0.25"/>
-    </svg>`;
-  }
-  if (type === 'triangle') {
-    const h = Math.round(size * 0.92);
-    return `<svg width="${size}" height="${h}" viewBox="0 0 ${size} ${h}" aria-hidden="true">
-      <polygon points="${size/2},6 6,${h - 4} ${size-6},${h - 4}" fill="${color}" opacity="0.93"/>
-      <polygon points="${size/2},6 6,${h - 4} ${size-6},${h - 4}" fill="none" stroke="white" stroke-width="2.5" stroke-dasharray="7 5" opacity="0.5"/>
-      <ellipse cx="${size/2}" cy="${h - 2}" rx="${size/2 - 10}" ry="5" fill="${color}" opacity="0.25"/>
-    </svg>`;
-  }
-  if (type === 'square') {
-    return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">
-      <rect x="6" y="6" width="${size - 12}" height="${size - 12}" rx="12" fill="${color}" opacity="0.93"/>
-      <rect x="6" y="6" width="${size - 12}" height="${size - 12}" rx="12" fill="none" stroke="white" stroke-width="2.5" stroke-dasharray="7 5" opacity="0.5"/>
-      <ellipse cx="${size/2}" cy="${size - 2}" rx="${size/2 - 10}" ry="5" fill="${color}" opacity="0.25"/>
-    </svg>`;
-  }
+  if (type === 'circle') return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><ellipse cx="${size/2}" cy="${size-3}" rx="${size/2-8}" ry="6" fill="${color}" opacity="0.22"/><circle cx="${size/2}" cy="${size/2-4}" r="${size/2-4}" fill="${color}" opacity="0.93"/><circle cx="${size/2}" cy="${size/2-4}" r="${size/2-4}" fill="none" stroke="white" stroke-width="2.5" stroke-dasharray="7 5" opacity="0.5"/></svg>`;
+  if (type === 'triangle') { const h=Math.round(size*0.92); return `<svg width="${size}" height="${h}" viewBox="0 0 ${size} ${h}"><ellipse cx="${size/2}" cy="${h-3}" rx="${size/2-12}" ry="5" fill="${color}" opacity="0.22"/><polygon points="${size/2},6 6,${h-4} ${size-6},${h-4}" fill="${color}" opacity="0.93"/><polygon points="${size/2},6 6,${h-4} ${size-6},${h-4}" fill="none" stroke="white" stroke-width="2.5" stroke-dasharray="7 5" opacity="0.5"/></svg>`; }
+  if (type === 'square') return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><ellipse cx="${size/2}" cy="${size-3}" rx="${size/2-10}" ry="5" fill="${color}" opacity="0.22"/><rect x="6" y="6" width="${size-12}" height="${size-12}" rx="12" fill="${color}" opacity="0.93"/><rect x="6" y="6" width="${size-12}" height="${size-12}" rx="12" fill="none" stroke="white" stroke-width="2.5" stroke-dasharray="7 5" opacity="0.5"/></svg>`;
 }
 
 function renderReframeShapes(key) {
   const row = document.getElementById('reframe-shapes-row');
   const insight = document.getElementById('insight-box');
   const data = reframeData[key];
-
-  // Clear and re-render
   row.innerHTML = '';
   insight.classList.remove('visible');
-
   data.shapes.forEach((s, i) => {
     const div = document.createElement('div');
     div.className = 'reframe-shape';
-    div.setAttribute('role', 'article');
+    div.setAttribute('role','article');
     div.setAttribute('aria-label', s.question);
-    div.innerHTML = shapeSVG(s.type, s.color, 88) +
-      `<div class="shape-q">${s.question}</div>`;
+    div.innerHTML = shapeSVG(s.type, s.color, 88) + `<div class="shape-q">${s.question}</div>`;
     row.appendChild(div);
-    // Staggered reveal
     setTimeout(() => div.classList.add('visible'), 80 + i * 140);
   });
-
-  // Show insight after shapes appear
   setTimeout(() => insight.classList.add('visible'), 600);
 }
 
-// ============================================================
-// PANEL 4 – DIY REFRAMING
-// ============================================================
+// ── PANEL 4 ──────────────────────────────────────────────────
 function initPanel4() {
-  // Reset if coming back fresh (keep state if returning)
   updateStepBadges();
   if (p4State.step === 0) {
     document.getElementById('p4-step1').style.display = 'block';
@@ -997,220 +634,115 @@ function initPanel4() {
 }
 
 function updateStepBadges() {
-  const badges = [
-    { id: 'step1-badge', step: 0 },
-    { id: 'step2-badge', step: 1 },
-    { id: 'step3-badge', step: 2 },
-    { id: 'step4-badge', step: 3 }
-  ];
-  badges.forEach(({ id, step }) => {
-    const el = document.getElementById(id);
-    el.classList.remove('active-step', 'done-step', 'todo');
+  [0,1,2,3].forEach(step => {
+    const el = document.getElementById(`step${step+1}-badge`);
+    el.classList.remove('active-step','done-step','todo');
     const pip = el.querySelector('.step-pip');
-    pip.classList.remove('active-pip', 'done-pip', 'todo-pip');
-    if (p4State.step > step) {
-      el.classList.add('done-step');
-      pip.classList.add('done-pip');
-      pip.textContent = '✓';
-    } else if (p4State.step === step || (step === 0 && p4State.step === 0)) {
-      el.classList.add('active-step');
-      pip.classList.add('active-pip');
-      pip.textContent = step + 1;
-    } else {
-      el.classList.add('todo');
-      pip.classList.add('todo-pip');
-      pip.textContent = step + 1;
-    }
+    pip.classList.remove('active-pip','done-pip','todo-pip');
+    if (p4State.step > step) { el.classList.add('done-step'); pip.classList.add('done-pip'); pip.textContent = '✓'; }
+    else if (p4State.step === step) { el.classList.add('active-step'); pip.classList.add('active-pip'); pip.textContent = step+1; }
+    else { el.classList.add('todo'); pip.classList.add('todo-pip'); pip.textContent = step+1; }
   });
 }
 
 function submitProblem() {
   const val = document.getElementById('user-problem').value.trim();
-  if (!val) {
-    document.getElementById('user-problem').focus();
-    document.getElementById('user-problem').style.borderColor = '#e01090';
-    return;
-  }
+  if (!val) { document.getElementById('user-problem').focus(); document.getElementById('user-problem').style.borderColor='#e01090'; return; }
   document.getElementById('user-problem').style.borderColor = '';
-  p4State.problem = val;
-  p4State.step = 1;
-
-  // Show rock with text
+  p4State.problem = val; p4State.step = 1;
   document.getElementById('user-rock-text').textContent = val;
   document.getElementById('user-rock-wrap').style.display = 'flex';
   document.getElementById('p4-step1').style.display = 'none';
-
-  // Show questions area
   document.getElementById('p4-questions-area').style.display = 'block';
   document.getElementById('question-label').textContent = 'Question 1:';
-  document.getElementById('question-prompt-text').innerHTML =
-    'Now, turn it into a question. It helps to start with <strong>"How to," "How might," or "What might be all the…"</strong>';
+  document.getElementById('question-prompt-text').innerHTML = 'Now, turn it into a question. It helps to start with <strong>"How to," "How might," or "What might be all the…"</strong>';
   document.getElementById('user-question').value = '';
   document.getElementById('user-question').placeholder = 'How might I…';
   document.getElementById('user-question').focus();
-
   updateStepBadges();
 }
 
 function submitQuestion() {
   const val = document.getElementById('user-question').value.trim();
-  if (!val) {
-    document.getElementById('user-question').focus();
-    document.getElementById('user-question').style.borderColor = '#e01090';
-    return;
-  }
+  if (!val) { document.getElementById('user-question').focus(); document.getElementById('user-question').style.borderColor='#e01090'; return; }
   document.getElementById('user-question').style.borderColor = '';
-  p4State.questions.push(val);
-  p4State.step++;
-
-  // Add bubble to gallery
-  const gallery = document.getElementById('questions-gallery');
-  const bubble = document.createElement('div');
-  bubble.className = 'q-bubble';
-  bubble.textContent = val;
-  bubble.setAttribute('role', 'listitem');
-  gallery.appendChild(bubble);
-
-  // Clear input
+  const qIndex = p4State.questions.length;
+  p4State.questions.push(val); p4State.step++;
+  document.getElementById('questions-gallery').appendChild(buildQuestionShape(qIndex, val));
   document.getElementById('user-question').value = '';
-
   updateStepBadges();
-
   if (p4State.questions.length >= 3) {
-    // Done!
     document.getElementById('next-question-form').style.display = 'none';
     document.getElementById('p4-congrats').style.display = 'block';
     document.getElementById('p4-back-row').style.display = 'none';
-    document.getElementById('p4-congrats').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    document.getElementById('p4-congrats').scrollIntoView({ behavior:'smooth', block:'nearest' });
   } else {
     const qNum = p4State.questions.length + 1;
     document.getElementById('question-label').textContent = `Question ${qNum}:`;
-    const prompts = [
-      null,
-      'Great! Can you try wording it <strong>another way?</strong>',
-      'Excellent! One more — this time, try a completely <strong>different angle.</strong>'
-    ];
+    const prompts = [null,'Great! Can you try wording it <strong>another way?</strong>','Excellent! One more — this time, try a completely <strong>different angle.</strong>'];
     document.getElementById('question-prompt-text').innerHTML = prompts[p4State.questions.length] || '';
-    document.getElementById('user-question').placeholder = ['How to…', 'What might be all the…', 'How might I…'][p4State.questions.length] || 'How might…';
+    document.getElementById('user-question').placeholder = ['How to…','What might be all the…','How might I…'][p4State.questions.length] || 'How might…';
     document.getElementById('user-question').focus();
   }
 }
 
-// ============================================================
-// PANEL 5 – SAVE AS PNG
-// ============================================================
+function buildQuestionShape(index, text) {
+  const configs = [
+    {type:'circle',  color:'#ac1ca1', size:130},
+    {type:'triangle',color:'#1479d1', size:130},
+    {type:'hexagon', color:'#6aaa00', size:130}
+  ];
+  const {type, color, size} = configs[index % 3];
+  const wrap = document.createElement('div');
+  wrap.className = 'q-shape-wrap';
+  wrap.setAttribute('role','listitem');
+  wrap.setAttribute('aria-label', text);
+  let svgInner = '';
+  if (type === 'circle') svgInner = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><ellipse cx="${size/2}" cy="${size-4}" rx="${size/2-14}" ry="7" fill="${color}" opacity="0.22"/><circle cx="${size/2}" cy="${size/2-4}" r="${size/2-8}" fill="${color}" opacity="0.93"/></svg>`;
+  else if (type === 'triangle') { const h=Math.round(size*0.88); svgInner=`<svg width="${size}" height="${h}" viewBox="0 0 ${size} ${h}"><ellipse cx="${size/2}" cy="${h-4}" rx="${size/2-18}" ry="6" fill="${color}" opacity="0.22"/><polygon points="${size/2},6 6,${h-5} ${size-6},${h-5}" fill="${color}" opacity="0.93"/></svg>`; }
+  else if (type === 'hexagon') { const cx=size/2,cy=size/2,r=size/2-8; const pts=Array.from({length:6},(_,i)=>{const a=(Math.PI/3)*i-Math.PI/6; return `${cx+r*Math.cos(a)},${cy+r*Math.sin(a)}`;}).join(' '); svgInner=`<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><ellipse cx="${cx}" cy="${size-4}" rx="${r*0.65}" ry="6" fill="${color}" opacity="0.22"/><polygon points="${pts}" fill="${color}" opacity="0.93"/></svg>`; }
+  wrap.innerHTML = svgInner + `<div class="q-shape-label">${text}</div>`;
+  return wrap;
+}
+
+// ── SAVE PNG ─────────────────────────────────────────────────
 function saveAsPNG() {
   const canvas = document.getElementById('export-canvas');
   const ctx = canvas.getContext('2d');
-  const W = 900, H = 520;
-  canvas.width = W;
-  canvas.height = H;
-
-  // Background
-  const bg = ctx.createLinearGradient(0, 0, W, H);
-  bg.addColorStop(0, '#0d2b6e');
-  bg.addColorStop(1, '#1479d1');
-  ctx.fillStyle = bg;
-  ctx.roundRect(0, 0, W, H, 24);
-  ctx.fill();
-
-  // Title
-  ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 36px Georgia, serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('My Reframing', W / 2, 56);
-
-  // Problem label
-  ctx.font = 'bold 14px Arial, sans-serif';
-  ctx.fillStyle = '#ffa32a';
-  ctx.fillText('MY PROBLEM', W / 2, 95);
-
-  // Problem text
-  ctx.fillStyle = '#ebecf4';
-  ctx.font = '18px Arial, sans-serif';
-  wrapText(ctx, p4State.problem || '(no problem entered)', W / 2, 122, 680, 26, 'center');
-
-  // Divider
-  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(80, 165); ctx.lineTo(W - 80, 165);
-  ctx.stroke();
-
-  // Questions label
-  ctx.fillStyle = '#89d808';
-  ctx.font = 'bold 14px Arial, sans-serif';
-  ctx.fillText('MY REFRAMING QUESTIONS', W / 2, 192);
-
-  const shapeColors = ['#ac1ca1', '#1479d1', '#6aaa00'];
-  const qs = p4State.questions.length > 0 ? p4State.questions : ['(no questions yet)'];
-  const boxW = 240, boxH = 110, gap = 30;
-  const totalW = qs.length * boxW + (qs.length - 1) * gap;
-  const startX = (W - totalW) / 2;
-
-  qs.forEach((q, i) => {
-    const x = startX + i * (boxW + gap);
-    const y = 210;
-    ctx.fillStyle = shapeColors[i % shapeColors.length];
-    ctx.beginPath();
-    ctx.roundRect(x, y, boxW, boxH, 18);
-    ctx.fill();
-
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 15px Arial, sans-serif';
-    ctx.textAlign = 'center';
-    wrapText(ctx, q, x + boxW / 2, y + 30, boxW - 20, 22, 'center');
-  });
-
-  // Footer
-  ctx.fillStyle = 'rgba(255,255,255,0.45)';
-  ctx.font = '13px Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('Created with Shape Up — a reframing adventure', W / 2, H - 22);
-
-  // Download
-  const link = document.createElement('a');
-  link.download = 'my-reframing.png';
-  link.href = canvas.toDataURL('image/png');
-  link.click();
+  const W=900, H=520; canvas.width=W; canvas.height=H;
+  const bg=ctx.createLinearGradient(0,0,W,H); bg.addColorStop(0,'#0d2b6e'); bg.addColorStop(1,'#1479d1');
+  ctx.fillStyle=bg; ctx.roundRect(0,0,W,H,24); ctx.fill();
+  ctx.fillStyle='#ffffff'; ctx.font='bold 36px Georgia,serif'; ctx.textAlign='center'; ctx.fillText('My Reframing',W/2,56);
+  ctx.font='bold 14px Arial,sans-serif'; ctx.fillStyle='#ffa32a'; ctx.fillText('MY PROBLEM',W/2,95);
+  ctx.fillStyle='#ebecf4'; ctx.font='18px Arial,sans-serif'; wrapText(ctx,p4State.problem||'(no problem entered)',W/2,122,680,26,'center');
+  ctx.strokeStyle='rgba(255,255,255,0.2)'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(80,165); ctx.lineTo(W-80,165); ctx.stroke();
+  ctx.fillStyle='#89d808'; ctx.font='bold 14px Arial,sans-serif'; ctx.fillText('MY REFRAMING QUESTIONS',W/2,192);
+  const sc=['#ac1ca1','#1479d1','#6aaa00']; const qs=p4State.questions.length>0?p4State.questions:['(no questions yet)'];
+  const bW=240,bH=110,gap=30; const tW=qs.length*bW+(qs.length-1)*gap; const sX=(W-tW)/2;
+  qs.forEach((q,i)=>{ const x=sX+i*(bW+gap),y=210; ctx.fillStyle=sc[i%sc.length]; ctx.beginPath(); ctx.roundRect(x,y,bW,bH,18); ctx.fill(); ctx.fillStyle='#ffffff'; ctx.font='bold 15px Arial,sans-serif'; ctx.textAlign='center'; wrapText(ctx,q,x+bW/2,y+30,bW-20,22,'center'); });
+  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='13px Arial,sans-serif'; ctx.textAlign='center'; ctx.fillText('Created with Shape Up — a reframing adventure',W/2,H-22);
+  const link=document.createElement('a'); link.download='my-reframing.png'; link.href=canvas.toDataURL('image/png'); link.click();
+}
+function wrapText(ctx,text,x,y,maxW,lineH,align) {
+  const words=text.split(' '); let line=''; ctx.textAlign=align||'left';
+  words.forEach((w,i)=>{ const t=line+w+' '; if(ctx.measureText(t).width>maxW&&i>0){ctx.fillText(line.trim(),x,y);line=w+' ';y+=lineH;}else{line=t;} });
+  ctx.fillText(line.trim(),x,y);
 }
 
-function wrapText(ctx, text, x, y, maxW, lineH, align) {
-  const words = text.split(' ');
-  let line = '';
-  ctx.textAlign = align || 'left';
-  words.forEach((word, i) => {
-    const test = line + word + ' ';
-    if (ctx.measureText(test).width > maxW && i > 0) {
-      ctx.fillText(line.trim(), x, y);
-      line = word + ' ';
-      y += lineH;
-    } else {
-      line = test;
-    }
-  });
-  ctx.fillText(line.trim(), x, y);
-}
-
-// ============================================================
-// RESTART
-// ============================================================
+// ── RESTART ───────────────────────────────────────────────────
 function restartGame() {
-  p4State = { problem: '', questions: [], step: 0 };
-  selectedProblem = null;
-  problemsClicked.clear();
-
-  // Reset panel 3
-  ['a', 'b', 'c'].forEach(k => {
+  p4State = { problem:'', questions:[], step:0 };
+  explodedRocks.clear();
+  morphPlayed = false;
+  ['a','b','c'].forEach(k => {
     const btn = document.getElementById('rock-btn-' + k);
-    btn.setAttribute('aria-pressed', 'false');
-    btn.classList.remove('selected');
+    btn.setAttribute('aria-pressed','false'); btn.style.opacity='1'; btn.style.pointerEvents='';
+    document.getElementById('label-' + k).classList.remove('visible');
+    document.getElementById('slot-' + k).querySelectorAll('.rock-fragment').forEach(f=>f.remove());
   });
   document.getElementById('reframe-shapes-row').innerHTML = '';
   document.getElementById('insight-box').classList.remove('visible');
   document.getElementById('p3-next-btn').style.display = 'none';
-
-  // Reset panel 4
   document.getElementById('user-problem').value = '';
   document.getElementById('user-rock-wrap').style.display = 'none';
   document.getElementById('p4-questions-area').style.display = 'none';
@@ -1219,48 +751,16 @@ function restartGame() {
   document.getElementById('p4-back-row').style.display = 'flex';
   document.getElementById('questions-gallery').innerHTML = '';
   document.getElementById('next-question-form').style.display = 'block';
-
-  // Reset panel 2 morph
-  document.getElementById('morph-rocks').style.transition = 'none';
-  document.getElementById('morph-shapes').style.transition = 'none';
-  document.getElementById('morph-rocks').style.opacity = '1';
-  document.getElementById('morph-shapes').style.opacity = '0';
-  setTimeout(() => {
-    document.getElementById('morph-rocks').style.transition = 'opacity 0.8s 0.3s';
-    document.getElementById('morph-shapes').style.transition = 'opacity 0.8s 1.2s';
-  }, 50);
-
+  resetMorph();
   goToPanel(1);
 }
 
-// ============================================================
-// KEYBOARD — Enter to submit forms
-// ============================================================
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
-    if (document.getElementById('user-question') === e.target) {
-      e.preventDefault();
-      submitQuestion();
-    }
-  }
+  if (e.key==='Enter' && e.target===document.getElementById('user-question')) { e.preventDefault(); submitQuestion(); }
 });
 
-// Polyfill roundRect for older browsers
 if (!CanvasRenderingContext2D.prototype.roundRect) {
-  CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
-    this.beginPath();
-    this.moveTo(x + r, y);
-    this.lineTo(x + w - r, y);
-    this.quadraticCurveTo(x + w, y, x + w, y + r);
-    this.lineTo(x + w, y + h - r);
-    this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    this.lineTo(x + r, y + h);
-    this.quadraticCurveTo(x, y + h, x, y + h - r);
-    this.lineTo(x, y + r);
-    this.quadraticCurveTo(x, y, x + r, y);
-    this.closePath();
-    return this;
-  };
+  CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){this.beginPath();this.moveTo(x+r,y);this.lineTo(x+w-r,y);this.quadraticCurveTo(x+w,y,x+w,y+r);this.lineTo(x+w,y+h-r);this.quadraticCurveTo(x+w,y+h,x+w-r,y+h);this.lineTo(x+r,y+h);this.quadraticCurveTo(x,y+h,x,y+h-r);this.lineTo(x,y+r);this.quadraticCurveTo(x,y,x+r,y);this.closePath();return this;};
 }
 </script>
 </body>
